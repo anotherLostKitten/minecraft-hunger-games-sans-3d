@@ -1,0 +1,216 @@
+William Lu
+Theodore Peters
+Ivan Zhang
+Adil Gondal
+Imad Belkebir
+Honorary Member William Lu
+pd 7
+---------------------
+Pokemon Forecast
+  ____       U _____ u    __     __         _            U  ___ u       ____
+ |  _"\      \| ___"|/    \ \   /"/u       |"|            \/"_ \/    U /"___|u
+/| | | |      |  _|        \ \ / //      U | | u          | | | |    \| |  _ /
+U| |_| |\     | |___       /\ V /_,-.     \| |/__     .-,_| |_| |     | |_| |
+ |____/ u     |_____|     U  \_/-(_/       |_____|     \_)-\___/       \____|
+  |||_        <<   >>       //             //  \\           \\         _(||_
+ (__)_)      (__) (__)     (__)           (_")("_)         (__)       (__)__)
+
+==============================================================
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
+teddyP -- 2018-11-19 18:31
+--------------------------------------------------------------
+Devlog now in compliance.
+Main features:
+       Decided on using foundation
+       Plan to combine a weather API and a Pokemon API to determine which pokemon one can expect to see in their area
+       Need to correspond weather to pokemon types, call api accordingly, display these reasonably to a user
+Possible additional features:
+       Database to facilitate autocomplete on searching city
+       Map of city
+       Display for more info on pokemon (fancy hover menus with CSS?)
+
+==============================================================
+
+theodoreP -- 2018-11-20 20:19
+--------------------------------------------------------------
+Augmentation to the starter kit Ivan Zhang added but FORGOT TO MAKE A DEVLOG ENTRY ON
+==============================================================
+
+theodoreP -- 2018-11-21 6:43
+--------------------------------------------------------------
+Uploaded final design doc, good morning!
+==============================================================
+
+adilG -- 2018-11-26 13:05
+--------------------------------------------------------------
+Updated flask app to show weather for Toronto using Weather API.
+==============================================================
+
+ivanZ -- 2018-11-26 13:15
+--------------------------------------------------------------
+Added navbar with dummy links.
+==============================================================
+
+imadB -- 2018-11-26 13:20
+--------------------------------------------------------------
+Accessing API to create database with weather types and single pokemon
+==============================================================
+
+theodoreP -- 2018-11-26 23:24
+--------------------------------------------------------------
+updates to plan, featuring...
+    compenent map that actually maps components, showing what files correspond to which tasks
+	additional specificity into what tasks will be preformed by which users
+	clarified functionality of local pokemon database
+	bug fixes and preformance improvements
+added dummy files for all necessary components, in the spirit of promoting proper modularity now rather than fixing it later
+
+TODO: acquire a highlighter so as to succesfully comlete 3nd task.
+==============================================================
+
+ivanZ -- 2018-11-27 13:23
+--------------------------------------------------------------
+Updated navbar with 'Pokedex' tab. Tried to make it sticky, did not work. Will focus on it as an "extra" feature.
+================================================================
+
+imadB -- 2018-11-27 13:20
+--------------------------------------------------------------
+Created database with weather types and single pokemon
+==============================================================
+
+imadB -- 2018-11-28 12:20
+--------------------------------------------------------------
+Created database functions to get weather and pokemon info based on inputed city
+================================================================
+
+ivanZ -- 2018-11-28 12:45
+--------------------------------------------------------------
+Updated navbar with 'Pokedex' tab with links. Added Search Bar. Will make Search bar align right.
+==============================================================
+
+adilG -- 2018-11-28 12:45
+--------------------------------------------------------------
+Created function to show pokemon sprite with poke api
+==============================================================
+
+ivanZ -- 2018-11-28 16:17
+--------------------------------------------------------------
+Added Pokedex. Started Pokeinfo. NEED to find a way of storing Pokemon data.
+==============================================================
+
+ivanZ -- 2018-11-28 17:00
+--------------------------------------------------------------
+Info Page for Pokemon.
+==============================================================
+
+ivanZ -- 2018-11-29 13:00
+--------------------------------------------------------------
+Fixed nav bar so that Search bar is right aligned
+==============================================================
+
+ivanZ -- 2018-11-30 13:21
+--------------------------------------------------------------
+Started work so that Info Page is prettier.
+==============================================================
+
+theodoreP -- 2018-12-03 00:57
+--------------------------------------------------------------
+various:
+	- requirements.txt
+	- basic functional search
+	- minor restructuring
+	- changed "Search" to "Go!", not sure if i should keep this change what do you guys think??
+
+also readme uptades like 15 minutes later
+==============================================================
+
+ivanZ -- 2018-12-03 01:10
+--------------------------------------------------------------
+Started Poke Info Page and Weather Page
+==============================================================
+
+adilG -- 2018-12-03 13:10
+--------------------------------------------------------------
+Page now displays random pokemons based on weather in the area.
+===============================================================
+
+
+imadB -- 2018-12-03 13:15
+--------------------------------------------------------------
+Getting and displaying images of pokemon from API based on weather and type
+===============================================================
+
+ivanZ -- 2018-12-04 01:20
+--------------------------------------------------------------
+Made Poke Info Page per suggestions of team. (With colored background and colored borders)
+==============================================================
+
+adilG -- 2018-12-04 13:15
+--------------------------------------------------------------
+Error handling for unrecognized API calls.
+===============================================================
+
+theodorePP -- 2018-12-04 22:50
+--------------------------------------------------------------
+Error handling for ALL unrecognized API calls.
+Caching of API results for faster load times.
+Search Function cabable of differentiating different types of input.
+
+TODO: error handling for if cookie/api data is large not good, redirect to last page instead of home page on bad search
+
+===============================================================
+
+ivanZ -- 2018-12-05 01:20
+--------------------------------------------------------------
+Added final touches to Weather page.
+==============================================================
+
+theodoroeP -- 2018-12-05 11:01
+--------------------------------------------------------------
+color list and uhhhh empty searches don't make errors
+===============================================================
+
+theodorkP -- 2018-12-06 00:08
+--------------------------------------------------------------
+images for things
+restructured home page and nav bar
+flashed messages for bad search
+last location and last pokemon access stored to cookies,
+show up on nav bar.
+probably other stuff too but i forget
+===============================================================
+
+adilG -- 2018-12-06 13:10
+--------------------------------------------------------------
+Modified abilities and moves sections for pokemons
+==============================================================
+
+imadB -- 2018-12-06 13:15
+--------------------------------------------------------------
+Multiple pokemon types returned based on weather conditions
+==============================================================
+
+adilG -- 2018-12-06 22:42
+--------------------------------------------------------------
+Names of pokemons now displayed without hyperlink error.
+==============================================================
+
+theodoreP -- 2018-12-07 03:29
+--------------------------------------------------------------
+argh
+reformated weather and pokemon display pages extensively
+modified type display colors, more things colorful
+hover effects on pokemon in weather view
+maps
+william lu
+random location
+docstrings
+capitalization actually working properly
+cookie storing functional, but caching api data impossible due to cookie size limits :(
+seperated functions to be more coherent in api.py
+learned you can pass in functions to jinja, very cool
+im going to bed now
+==============================================================
+

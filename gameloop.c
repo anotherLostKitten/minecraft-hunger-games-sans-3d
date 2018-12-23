@@ -6,7 +6,11 @@
 #include <stdlib.h>
 #define FPS 2
 #define BILLION 1000000000
+int setup(){
+    return 0;
+}
 int main(){
+    setup();
     while(1){
         struct timespec start, end;
         clock_gettime(CLOCK_MONOTONIC_RAW, &start);

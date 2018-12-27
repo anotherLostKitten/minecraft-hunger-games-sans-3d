@@ -1,0 +1,13 @@
+Minecraft Hunger Games Sans 3D
+Theodore Peters & Jonathan Singer
+
+Players will connect to a server to play a last man standing free for all in a procedurally generated dungeon.
+
+A user will be able to host a game server or connect to a game server hosted by another user. Once all the players have joined the server, players will choose where to spawn on the map and must look for generated weapons and equiptment to better fight other players. The last man standing wins.
+
+The project will need use networking and piping to allow different machines to communicate with one another, file reading to load certain hand-made rooms, forking to allow a player to host a game server, and memory allocation to store information about the generated dungeon.
+
+The server will have a grid which represents the map, and structs to store information about the players (location, hp, etc.) to calculate players being damaged and the game states of the players.
+
+We will use cellular automota and least spanning tree algorithms to procedurally generate the dungeon.
+

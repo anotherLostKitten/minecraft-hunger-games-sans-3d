@@ -22,3 +22,6 @@
 [submodule "5/kimJa-liAn-wongKa"]
 	path = 5/kimJa-liAn-wongKa
 	url = git@github.com:jkim33/System_Final.git
+[submodule "4/caiFi-choiS-liaoJ"]
+	path = 4/caiFi-choiS-liaoJ
+	url = git@github.com:fionaxc/SJF_FinalProject.git

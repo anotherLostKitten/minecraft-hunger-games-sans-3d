@@ -4,3 +4,6 @@
 [submodule "5/tangMi-brydonMa-gulsenEl-guptaSh"]
 	path = 5/tangMi-brydonMa-gulsenEl-guptaSh
 	url = https://github.com/tangym27/project02.git
+[submodule "5/liangGe_nahianSa_wongRi"]
+	path = 5/liangGe_nahianSa_wongRi
+	url = https://github.com/GeoLiang90/final_mafia.git

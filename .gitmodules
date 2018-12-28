@@ -13,3 +13,6 @@
 [submodule "4/tanSt-jiangDa-scheinbergRe"]
 	path = 4/tanSt-jiangDa-scheinbergRe
 	url = https://github.com/StefanTan18/SysFinalProject.git
+[submodule "4/wangCr-liuSt-hanRo"]
+	path = 4/wangCr-liuSt-hanRo
+	url = https://github.com/cwcrystal8/Scrabbled_Eggs.git

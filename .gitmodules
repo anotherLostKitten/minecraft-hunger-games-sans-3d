@@ -7,3 +7,6 @@
 [submodule "5/liangGe_nahianSa_wongRi"]
 	path = 5/liangGe_nahianSa_wongRi
 	url = https://github.com/GeoLiang90/final_mafia.git
+[submodule "5/linVi-tungJa-wongLa"]
+	path = 5/linVi-tungJa-wongLa
+	url = https://github.com/victorlin7534/Sys_final_project.git

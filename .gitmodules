@@ -19,3 +19,6 @@
 [submodule "4/uddinMo-jamilMo"]
 	path = 4/uddinMo-jamilMo
 	url = https://github.com/Zer0-M/Systems-Final.git
+[submodule "5/kimJa-liAn-wongKa"]
+	path = 5/kimJa-liAn-wongKa
+	url = git@github.com:jkim33/System_Final.git

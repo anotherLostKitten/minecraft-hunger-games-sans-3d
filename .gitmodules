@@ -28,3 +28,6 @@
 [submodule "4/kendallMa-yangHa-weinerJo"]
 	path = 4/kendallMa-yangHa-weinerJo
 	url = git@github.com:hyang66/Google-Docs-but-its-made-by-3-high-school-students.git
+[submodule "4/caiFi-choiSo-liaoJo"]
+	path = 4/caiFi-choiSo-liaoJo
+	url = git@github.com:fionaxc/SJF_FinalProject.git

@@ -10,3 +10,6 @@
 [submodule "5/linVi-tungJa-wongLa"]
 	path = 5/linVi-tungJa-wongLa
 	url = https://github.com/victorlin7534/Sys_final_project.git
+[submodule "4/tanSt-jiangDa-scheinbergRe"]
+	path = 4/tanSt-jiangDa-scheinbergRe
+	url = https://github.com/StefanTan18/SysFinalProject.git

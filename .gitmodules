@@ -25,3 +25,6 @@
 [submodule "4/caiFi-choiS-liaoJ"]
 	path = 4/caiFi-choiS-liaoJ
 	url = git@github.com:fionaxc/SJF_FinalProject.git
+[submodule "4/kendallMa-yangHa-weinerJo"]
+	path = 4/kendallMa-yangHa-weinerJo
+	url = git@github.com:hyang66/Google-Docs-but-its-made-by-3-high-school-students.git

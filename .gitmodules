@@ -16,3 +16,6 @@
 [submodule "4/wangCr-liuSt-hanRo"]
 	path = 4/wangCr-liuSt-hanRo
 	url = https://github.com/cwcrystal8/Scrabbled_Eggs.git
+[submodule "4/uddinMo-jamilMo"]
+	path = 4/uddinMo-jamilMo
+	url = https://github.com/Zer0-M/Systems-Final.git

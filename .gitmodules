@@ -31,3 +31,6 @@
 [submodule "4/caiFi-choiSo-liaoJo"]
 	path = 4/caiFi-choiSo-liaoJo
 	url = git@github.com:fionaxc/SJF_FinalProject.git
+[submodule "4/chenKe-jamalTa-wangKe"]
+	path = 4/chenKe-jamalTa-wangKe
+	url = git@github.com:k-wang11/final_project.git

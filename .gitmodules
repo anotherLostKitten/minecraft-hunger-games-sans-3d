@@ -43,3 +43,6 @@
 [submodule "4/zhangIv-berensSi-luWi"]
 	path = 4/zhangIv-berensSi-luWi
 	url = https://github.com/ivzhang1/We-Real-Cool
+[submodule "5/chanD-aseerS"]
+	path = 5/chanD-aseerS
+	url = https://github.com/YChan3/Dust_3.git

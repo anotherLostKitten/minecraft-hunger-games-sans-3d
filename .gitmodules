@@ -49,3 +49,6 @@
 [submodule "5/peciR-aliT"]
 	path = 5/peciR-aliT
 	url = https://github.com/LargeLlama/chatroom
+[submodule "5/lamAn-liJo-zhouGa"]
+	path = 5/lamAn-liJo-zhouGa
+	url = https://github.com/JohnsonLi/kewpgvwe.git

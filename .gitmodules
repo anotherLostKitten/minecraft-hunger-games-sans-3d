@@ -46,3 +46,6 @@
 [submodule "5/chanD-aseerS"]
 	path = 5/chanD-aseerS
 	url = https://github.com/YChan3/Dust_3.git
+[submodule "5/peciR-aliT"]
+	path = 5/peciR-aliT
+	url = https://github.com/LargeLlama/chatroom

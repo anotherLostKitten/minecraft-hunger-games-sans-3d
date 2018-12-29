@@ -40,3 +40,6 @@
 [submodule "4/marderTi-xiaSo-idrisAn"]
 	path = 4/marderTi-xiaSo-idrisAn
 	url = https://github.com/TimMarder/SystemsFinalProject.git
+[submodule "4/zhangIv-berensSi-luWi"]
+	path = 4/zhangIv-berensSi-luWi
+	url = https://github.com/ivzhang1/We-Real-Cool

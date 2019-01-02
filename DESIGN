@@ -1,0 +1,25 @@
+Theodore Peters & Jonathan Singer
+
+Players will connect to a server to play a last man standing free for all tile based rogue-like battle royale in a procedurally generated dungeon.
+
+A user will be able to host a game server or connect to a game server hosted by another user. Once all the players have joined the server, players will choose where to spawn on the map and must look for generated weapons and equiptment to better fight other players. The last man standing wins.
+
+Users will have a screeuse keyboard input to move characters around, and as a stretch goal, mouse support would also be included, potentially for things such as spellcasting. The screen will show a tile-based map of the area around the player.
+
+AI enemies will also be included, implemented with A* search algorithms. Random item generation will populate chests and other receptacles with items of various types, which can be equipped. These items may have modifiers to their statistics such as strong, weak, or burning.
+
+The project will need use networking and piping to allow different machines to communicate with one another, file reading to load certain hand-made rooms, forking to allow a player to host a game server, and memory allocation to store information about the generated dungeon. In addition, information about the game state (to be accessed by the forked servers) will be stored in shared memory, which will be protected by semaphores.
+The infrastructure for a game loop has already been created. The beginning of the project will focus on producing a forked server that can send information to clients and then store that information in shared memory. Next will be the handling of client input. Then should come the drawing of graphics to the screen. After that, map generation, item generation, and enemy generation will be implemented. At this point, the game should be in a playable state. Beyond this, other stretch goals will be worked on.
+Theodore will work mostly on the random generation and the client side, whereas Jonathan will work mostly on the server side, the game state, and drawing graphics to the screen, although if one outpaces the other, both will work on the task that is behind.
+The server will have a 2d array which represents the map, and structs to store information about the players (location, hp, etc.) to calculate players being damaged and the game states of the players. There will be a tree to store the different kinds of items for random generation, and a bst for the players in the game.
+We will use cellular automota and least spanning tree algorithms to procedurally generate the dungeon, as well as A* search (using a Manhattan distance heuristic) for enemy movement.
+
+We may find it necessary to add new steps, algorithms, or data structures as we go along, and in our stretch goals, mouse support (using hitscanning algorithms), the DDA Algorithm for spellcasting, and potentially some sort of simple AI (perhaps using the minimax algorithm) if we want to allow bot AIs to play in place of humans.
+
+The Game loop is already done.
+A forked server should be implemented by January 10th, complete with shared memory and semaphore handling.
+Client input handling and sending should be complete by January 10th as well. 
+The various types of generation should be complete by January 20th or so.
+Along with generation, drawing to the screen should be done on January 20th.
+After that the great debugging shall commence, as should playtesting.
+If these goal are met early, stretch goals will be worked on.

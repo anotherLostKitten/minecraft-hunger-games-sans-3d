@@ -23,3 +23,4 @@ theodoreP -- 2018-12-07 03:29
 dev, meet log
 ==============================================================
 Jonathan Fri Dec 21 16:10:19 STD 2018 - Added a spritesheet
+Jonathan 2019-01-02 10:50 - Started making a server side gameloop

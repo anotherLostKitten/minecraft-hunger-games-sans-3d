@@ -3,13 +3,13 @@
 
 /*=========================
   server_handshake
-  args: int * to_client
+args: int * to_client
 
-  Performs the client side pipe 3 way handshake.
-  Sets *to_client to the file descriptor to the downstream pipe.
+Performs the client side pipe 3 way handshake.
+Sets *to_client to the file descriptor to the downstream pipe.
 
-  returns the file descriptor for the upstream pipe.
-  =========================*/
+returns the file descriptor for the upstream pipe.
+=========================*/
 int server_handshake(int *to_client) {
     puts("Server establishing connection to client");
     int wkp = open("Gandalf",O_RDONLY);
@@ -25,41 +25,38 @@ int server_handshake(int *to_client) {
     }
     puts("Server received private pipe name");
     close(wkp);
-    if(!fork()){ 
-        *to_client = open(pid,O_WRONLY);
-        if(-1==*to_client){
-            puts("Failure in opening private pipe, make sure pipe exists");
-            exit(-1);
-        }
-        sprintf(pid,"%d",getpid());
-        mkfifo(pid,0644);
-        puts("Connection established 1");
-        if(!write(*to_client,pid,HANDSHAKE_BUFFER_SIZE)){
-            puts("Failure in writing to private pipe, make sure pipe exists");
-            exit(-1);
-        }
-        puts("Opening server private pipe");
-        int upstream = open(pid,O_RDONLY);
-        if(-1==upstream){
-            puts("Failure in opening server private pipe, make sure pipe exists");
-            exit(-1);
-        }
-        puts("Acknowledge having received the connection");
-        return upstream;
-
+    *to_client = open(pid,O_WRONLY);
+    if(-1==*to_client){
+        puts("Failure in opening private pipe, make sure pipe exists");
+        exit(-1);
     }
+    sprintf(pid,"%d",getpid());
+    mkfifo(pid,0644);
+    puts("Connection established 1");
+    if(!write(*to_client,pid,HANDSHAKE_BUFFER_SIZE)){
+        puts("Failure in writing to private pipe, make sure pipe exists");
+        exit(-1);
+    }
+    puts("Opening server private pipe");
+    int upstream = open(pid,O_RDONLY);
+    if(-1==upstream){
+        puts("Failure in opening server private pipe, make sure pipe exists");
+        exit(-1);
+    }
+    puts("Acknowledge having received the connection");
+    return upstream;
 }
 
 
 /*=========================
   client_handshake
-  args: int * to_server
+args: int * to_server
 
-  Performs the client side pipe 3 way handshake.
-  Sets *to_server to the file descriptor for the upstream pipe.
+Performs the client side pipe 3 way handshake.
+Sets *to_server to the file descriptor for the upstream pipe.
 
-  returns the file descriptor for the downstream pipe.
-  =========================*/
+returns the file descriptor for the downstream pipe.
+=========================*/
 int client_handshake(int *to_server) {
     char pid[10];
     sprintf(pid,"%d",getpid());

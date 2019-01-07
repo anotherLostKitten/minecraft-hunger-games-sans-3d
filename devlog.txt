@@ -16,4 +16,4 @@ theodore 2018-12-07 03:29 - dev, meet log
 Jonathan 2018-12-21 16:10 - Added a spritesheet
 Jonathan 2019-01-02 10:50 - Started making a server side gameloop
 theodore 2019-01-03 22:22 - heap, grid, real yonkers hours
-
+Jonathan Mon Jan  7 10:33:06 STD 2019 - Made render function, added subserver and client functions

@@ -19,6 +19,7 @@ int setup(){
     }
     return 0;
 }
+
 int main(){
     setup();
 shandhake:
@@ -35,3 +36,4 @@ shandhake:
     updategamestate();
     goto shandhake;
 }
+

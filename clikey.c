@@ -6,7 +6,10 @@ int main(){return 0;}
 int handlekey(struct keysdown keys){
     SDL_Event event;
     while(SDL_PollEvent(&event)){
-        int crememnter = 0;
+        int crementer = 0;
+        keys->xk=0;
+        keys->zj=0;
+        keys->cl=0;
         switch(event.type){
             case SDL_KEYDOWN:
                 crementer = -2;
@@ -31,21 +34,26 @@ int handlekey(struct keysdown keys){
                         break;
                     case SDLK_z:
                     case SDLK_j:
-                        keys->zj+=crementer;
+                        if(crementer==1)
+                            keys->zj=1;
                         break;
                     case SDLK_x:
                     case SDLK_k:
-                        keys->xk+=crementer;
+                        if(crementer==1)
+                            keys->xk=1;
                         break;
                     case SDLK_c:
                     case SDLK_l:
-                        keys->cl+=crementer;
+                        if(crementer==1)
+                            keys->cl=1;
                         break;
                 }
                 break;
             default:
                 break;
         } 
-    
+        keys->xk=0;
+        keys->zj=0;
+        keys->cl=0;
     }
 }

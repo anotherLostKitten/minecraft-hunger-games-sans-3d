@@ -5,8 +5,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-//24-only one question don't focus on it but depends on interest rate,25,27-30,31,33-35
-//2 terms to know: deficit, debt
 union semun {
                int              val;    /* Value for SETVAL */
                struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
@@ -40,15 +38,4 @@ void closeshm(char* name,int semdescriptor,int shmdescriptor){
     semctl(semdescriptor,0,IPC_RMID);
     shmctl(shmdescriptor,IPC_RMID,NULL);
     remove(name);
-}
-
-
-int main(){
-    int semid, shmid;
-    char* name = "MEMEMMEMEME";
-    void* dtat;
-    makeshm(name,&semid,&shmid);
-    accshm(semid,shmid,-1,dtat);
-    accshm(semid,shmid,1,dtat);
-    closeshm(name,semid,shmid);
 }

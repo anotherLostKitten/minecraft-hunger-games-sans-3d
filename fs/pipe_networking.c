@@ -12,7 +12,7 @@ returns the file descriptor for the upstream pipe.
 =========================*/
 int server_handshake(int *to_client) {
     puts("Server establishing connection to client");
-    int wkp = open("Gandalf",O_RDONLY);
+    int wkp = open(WKP,O_RDONLY);
     printf("%d\n",wkp);
     if(-1==wkp){
         puts("Failure in opening well known pipe, make sure pipe exists");
@@ -61,7 +61,7 @@ int client_handshake(int *to_server) {
     char pid[10];
     sprintf(pid,"%d",getpid());
     mkfifo(pid,0644);
-    int wrfd = open("Gandalf",O_WRONLY);
+    int wrfd = open(WKP,O_WRONLY);
     if(-1==wrfd){
         puts("Failure in opening WKP client side");
         exit(-1);

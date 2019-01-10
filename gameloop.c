@@ -1,6 +1,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "fs/pipe_networking.h"
 #include "updategamestate.h"
 #include "subserver.h"
@@ -10,6 +11,7 @@
 int max_players;
 
 int setup(){
+    srand(time(NULL));
     mkfifo(WKP,0644);
     for(int num_players = 0;num_players<max_players;num_players++){
         if(fork()){

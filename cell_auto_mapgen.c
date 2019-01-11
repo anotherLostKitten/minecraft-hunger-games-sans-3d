@@ -77,8 +77,7 @@ void flood(int x, int y, int* filled){
             flood(x+col[i],y+row[i],filled);
 }
 
-int main(){
-    srand(time(NULL));
+Grid* mkmap(){
     int filled;
 regen:
     filled = 0;
@@ -97,7 +96,5 @@ regen:
     //printf("%f\n",(double) filled/(mapsize*mapsize));
     if((double) filled/(mapsize*mapsize)<.45) goto regen;
     rmgrid(map);
-    map = map2;
-    printtest();
-    return 0;
+    return map2;
 }

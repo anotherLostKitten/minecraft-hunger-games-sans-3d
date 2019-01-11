@@ -2,15 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "fs/socket.h"
+#include <time.h>
 #include "updategamestate.h"
 #include "subserver.h"
 #define FPS 2
 #define BILLION 1000000000
-
-int max_players;
-
+#define MAX_PLAYERS 6
+		   
 int setup(){
-    int sd=socket(AF_INET,SOCK_STREAM,0);
+	srand(time(NULL));
+	int sd=socket(AF_INET,SOCK_STREAM,0);
     if(!sd)
 		exit(1);
     struct addrinfo*hints,*results;
@@ -26,7 +27,7 @@ int setup(){
     free(hints);
     freeaddrinfo(results);
   
-    for(int num_players=0;num_players<max_players;num_players++){
+    for(int num_players=0;num_players<MAX_PLAYERS;num_players++){
 		if(fork(sd)){
 			forkproc(sd);
 			return 0;

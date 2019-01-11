@@ -1,4 +1,4 @@
-all: input.o gameloop.o updategamestate.o render.o pipe_networking.o
+all: input.o gameloop.o updategamestate.o render.o sockets.o
 	gcc -o ./game gameloop.o input.o updategamestate.o render.o
 input.o: input.c
 	gcc -c input.c
@@ -8,8 +8,8 @@ render.o: render.c
 	gcc -c render.c
 gameloop.o: gameloop.c
 	gcc -c gameloop.c
-bazinga:
-	ls -cflLACFQRUIOPLKJHGFDSAZXCVBNMqwertyuiopasdfghjklzxcvbnm --color=auto
-pipe_networking.o: fs/pipe_networking.c
-	gcc -c fs/pipe_networking.c
+sockets.o: fs/sockets.c
+	gcc -c fs/sockets.c
 
+clean:
+	rm *~* \#*\# *.o *.out *.exe  game

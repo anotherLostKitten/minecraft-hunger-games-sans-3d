@@ -17,7 +17,7 @@ int sswrite(){
 
 int fork_proc(int sd){
     to_client=sd;
-    from_client = server_handshake(&to_client);
+    from_client = server_connect(&to_client);
     if(fork()){
         ssread();
     }

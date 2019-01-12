@@ -1,5 +1,5 @@
-#ifndef "KEYSDOWN"
-#define "KEYSDOWN"
+#ifndef KEYSDOWN
+#define KEYSDOWN
 struct keysdown{
     char righta;
     char downs;

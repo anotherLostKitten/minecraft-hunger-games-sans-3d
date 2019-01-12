@@ -1,9 +1,7 @@
 #include <SDL2/SDL.h>
+#include "keysdown.h"
 
-int main(){return 0;}
-
-
-int handlekey(struct keysdown keys){
+int handlekey(struct keysdown* keys){
     SDL_Event event;
     while(SDL_PollEvent(&event)){
         int crementer = 0;
@@ -23,7 +21,7 @@ int handlekey(struct keysdown keys){
                     case SDLK_DOWN:
                     case SDLK_s:
                         keys->downs+=crementer;
-                        break
+                        break;
                     case SDLK_LEFT:
                     case SDLK_d:
                         keys->leftd+=crementer;

@@ -43,11 +43,11 @@ void generation(struct Grid*map,struct Grid*map2){
 }
 
 void flood(struct Grid*map,struct Grid*map2,int r, int c, int* filled){
-    *gridrc(map2,r,c) = 0;
+    *gridrc(map2,r,c) = 1;
     *filled+=1;
 	for(int i=0;i<2;i++)
 		for(int j=-1;j<2;j+=2)
-			if(!*gridrc(map,r+i*j,c+!i*j)&&*gridrc(map2,r+i*j,c+!i*j))
+			if(!*gridrc(map,r+i*j,c+!i*j)&&!*gridrc(map2,r+i*j,c+!i*j))
 				flood(map,map2,r+i*j,c+!i*j,filled);
 }
 
@@ -72,7 +72,7 @@ regen:
     }while(*gridrc(map,y,x));
     for(int i=0;i<r;i++)
         for(int j=0;j<c;j++)
-            *gridrc(map2,i,j) = 1;
+            *gridrc(map2,i,j) = 0;
     flood(map,map2,y,x,&filled);
     //printf("%f\n",(double) filled/(mapsize*mapsize));
     if(filled<r*c*9/20) goto regen;

@@ -23,9 +23,9 @@ void gridprint(struct Grid*grid){
     for(int y=0;y<grid->r;y++){
         for(int x=0;x<grid->c;x++)
             switch(*gridrc(grid,y,x)){
-			case 1:printf("[]");break;
-			case-1:printf("[]");break;
-			case 0:printf("  ");break;
+			case 1:printf("  ");break;
+			case 0:printf("[]");break;
+			case 2:printf("--");break;
 			default:printf("??");break;
             }
         putchar('\n');

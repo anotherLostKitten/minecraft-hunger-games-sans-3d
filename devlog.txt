@@ -20,4 +20,5 @@ Jonathan Mon Jan  7 10:33:06 STD 2019 - Made render function, added subserver an
 Jonathan Tue Jan  8 15:07:01 STD 2019 - From yesterday to now: built cave-like map generator through a cellular automaton, started working on keyboard handling
 Jonathan Thu Jan 10 11:42:34 STD 2019 - Made Shmutils for shared memory and semaphore handling, made player.h header file
 Jonathan Thu Jan 10 16:16:47 STD 2019 - Made items randomly generate, seeded other stuff, and many more also added headers for epicness
-
+theodore 2019-01-10 ??:?? - sockets but i forget when
+theodore 2019-01-12 14:07 - dungeneration (get it, its a portmanteau of dungeon and generation, epic gamer dab)

@@ -30,12 +30,14 @@ struct Grid*dunggen(int r,int c){
 			}
  z: while(n)
 		rndpath(map,path,&n,r,c);
+	rmgrid(path);
 	gridprint(map);
 	for(int i=1;i<map->r;i+=2)
 		for(int j=1;j<map->c;j+=2)
 			if(*gridrc(map,i,j)==1&&rand()%DEADEND)
 				deadend(map,i,j);
 	gridprint(map);
+	return map;
 }
 
 char clear(struct Grid*map,int r,int c,int rd,int cd){

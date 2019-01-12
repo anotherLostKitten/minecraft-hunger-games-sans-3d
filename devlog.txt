@@ -22,3 +22,4 @@ Jonathan Thu Jan 10 11:42:34 STD 2019 - Made Shmutils for shared memory and sema
 Jonathan Thu Jan 10 16:16:47 STD 2019 - Made items randomly generate, seeded other stuff, and many more also added headers for epicness
 theodore 2019-01-10 ??:?? - sockets but i forget when
 theodore 2019-01-12 14:07 - dungeneration (get it, its a portmanteau of dungeon and generation, epic gamer dab)
+theodore 2019-01-12 15:22 - wrewrote a bunch of CAM because it was really gnarly (global variavles, copying lists instead of SWAPPING POITNERS, etc..)

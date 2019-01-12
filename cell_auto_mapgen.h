@@ -1,4 +1,6 @@
 #ifndef CAM
 #define CAM
-Grid* mkmap();
+
+struct Grid* mkmap(int r,int c)
+
 #endif

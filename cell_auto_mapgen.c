@@ -55,18 +55,6 @@ void generation(){
             *gridrc(map,y,x) = *gridrc(map2,y,x);
 }
 
-void printtest(){
-    int x,y;
-    for(y=0;y<mapsize;y++){
-        for(x=0;x<mapsize;x++)
-            switch(*gridrc(map,y,x)){
-                case 1: printf("[]"); break;
-                case 0: printf("  "); break;
-            }
-        putchar('\n');
-    }
-}
-
 void flood(int x, int y, int* filled){
     *gridrc(map2,y,x) = 0;
     (*filled)++;

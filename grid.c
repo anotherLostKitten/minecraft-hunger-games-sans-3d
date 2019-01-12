@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "grid.h"
 
 struct Grid*mkgrid(int r,int c){
@@ -16,4 +17,17 @@ char*gridrc(struct Grid*grid,int r,int c){
 void rmgrid(struct Grid*grid){
 	free(grid->elem);
 	free(grid);
+}
+
+void gridprint(struct Grid*grid){
+    for(int y=0;y<grid->r;y++){
+        for(int x=0;x<grid->c;x++)
+            switch(*gridrc(grid,y,x)){
+			case 1:printf("[]");break;
+			case-1:printf("[]");break;
+			case 0:printf("  ");break;
+			default:printf("??");break;
+            }
+        putchar('\n');
+    }
 }

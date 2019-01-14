@@ -80,7 +80,3 @@ regen:
     return map2;
 }
 
-int main(){
-	gridprint(mkmap(49,101));
-	return 0;
-}

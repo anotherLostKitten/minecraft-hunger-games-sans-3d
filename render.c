@@ -45,7 +45,7 @@ void quitSDL(){
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
-int render(struct player* player,struct Grid* grid){
+int render(struct player* player,struct Grid* grid,struct player* playarray){
     int x = player->coords[0];
     int y = player->coords[1];
     const int htiles = screenwidth/tiledim ;
@@ -72,6 +72,13 @@ int render(struct player* player,struct Grid* grid){
             SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
         }
     }
+    for(int i=0;i;i++){
+        struct player* p = playarray[i];
+        textrext.y = 0;
+        drawrect.x = p->x-x+htiles/2+xoffset;
+        drawrect.y = p->y-y+vtiles/2+yoffset;
+        SDL_RenderCopy(renderer,texture,&textrext,&drawrect);
+    }
     //Update screen
     SDL_RenderPresent(renderer);
     return 0;
@@ -85,6 +92,7 @@ int main(){
    setupSDL();
    SDL_Event event;
    struct keysdown* keys = calloc(sizeof(struct keysdown),1);
+   struct players* playarray[4];
    while(!quit){
         while(SDL_PollEvent(&event)){
             int crementer = 0;

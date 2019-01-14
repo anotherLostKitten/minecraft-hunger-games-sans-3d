@@ -21,4 +21,6 @@ struct player{
     struct equipment** inv;
     int coords[2];
 };
+void attack(struct player* player,struct player* target);
+int makeplayer(struct Grid* grid);
 #endif

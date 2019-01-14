@@ -3,6 +3,7 @@
 #include "grid.h"
 #include "cell_auto_mapgen.h"
 #include "keysdown.h"
+#include "clikey.h"
 
 #define screenwidth 640
 #define screenheight 480
@@ -82,6 +83,8 @@ int main(){
    struct Grid* grid = mkmap(128,128);
    char quit = 0;
    setupSDL();
+   SDL_Event event;
+   struct keysdown* keys = calloc(sizeof(struct keysdown),1);
    while(!quit){
         while(SDL_PollEvent(&event)){
             int crementer = 0;
@@ -91,7 +94,7 @@ int main(){
             switch(event.type){
                 case SDL_KEYUP:
                 case SDL_KEYDOWN:
-                    handlekey(event,keysd);
+                    handlekey(event,keys);
                     break;
                 case SDL_QUIT:
                     quit = 1;

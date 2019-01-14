@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include "player.h"
 #include "grid.h"
+#include "cell_auto_mapgen.h"
 
 #define screenwidth 640
 #define screenheight 480
@@ -12,7 +13,7 @@ SDL_Surface* surface;
 SDL_Texture* texture;
 
 
-int quitSDL();
+void quitSDL();
 int setupSDL(){
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
@@ -35,7 +36,7 @@ int setupSDL(){
     
 }
 
-int quitSDL(){
+void quitSDL(){
     SDL_DestroyTexture(texture); 
     SDL_FreeSurface(surface);
     SDL_DestroyRenderer(renderer);
@@ -79,5 +80,5 @@ int main(){
    player->coords[1] = 30;
    struct Grid* grid = mkmap(128,128);
    setupSDL();
-   render();
+   render(player,grid);
 }

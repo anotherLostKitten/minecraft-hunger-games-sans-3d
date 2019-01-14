@@ -12,23 +12,23 @@ SDL_Surface* surface;
 SDL_Texture* texture;
 
 
-
+int quitSDL();
 int setupSDL(){
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
         return 1;
     }
     atexit(quitSDL);
-    if (SDL_CreateWindowAndRenderer(screenwidth,screenheight,SDL_WINDOW_INPUT_FOCUS,&window,&renderer);) {
+    if (SDL_CreateWindowAndRenderer(screenwidth,screenheight,SDL_WINDOW_INPUT_FOCUS,&window,&renderer)) {
         SDL_Log("Unable to initialize window and renderer: %s", SDL_GetError());
         return 1;
     }
     if(!(surface=SDL_LoadBMP("spritesheet.bmp"))){
-        SDL_Log("Unable to initialize spritesheet", SDL_GetError());
+        SDL_Log("Unable to initialize spritesheet %s", SDL_GetError());
         return 1;
     }
     if(!(texture = SDL_CreateTextureFromSurface(renderer,surface))){
-        SDL_Log("Unable to initialize texture", SDL_GetError());
+        SDL_Log("Unable to initialize texture %s", SDL_GetError());
         return 1;
     }
     
@@ -45,8 +45,8 @@ int quitSDL(){
 int render(struct player* player,struct Grid* grid){
     int x = player->coords[0];
     int y = player->coords[1];
-    const htiles = screenwidth/tiledim ;
-    const vtiles = screenheight/tiledim;
+    const int htiles = screenwidth/tiledim ;
+    const int vtiles = screenheight/tiledim;
     int xoffset = 0,yoffset = 0;
     if(grid->c - x < htiles/2)
         x = grid->c - htiles/2,xoffset = htiles/2 - (grid->c - x);
@@ -66,7 +66,7 @@ int render(struct player* player,struct Grid* grid){
         for(int j=0;j<vtiles;j++){
             textrect.x = 64+32*(*gridrc(grid,i,j));
             drawrect.x = 32*i, drawrect.y = 32*j;
-            SDL_RenderCopy(renderer,texture,textrect,drawrect);
+            SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
         }
     }
     //Update screen

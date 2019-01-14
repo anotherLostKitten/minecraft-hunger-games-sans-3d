@@ -19,5 +19,6 @@ struct player{
     struct equipment* weapon;
     struct equipment* ring;
     struct equipment** inv;
+    int coords[2];
 };
 #endif

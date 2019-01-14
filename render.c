@@ -64,7 +64,7 @@ int render(struct player* player,struct Grid* grid){
     textrect.h = textrect.w = drawrect.h = drawrect.w = 32;
     for(int i=0;i<htiles;i++){
         for(int j=0;j<vtiles;j++){
-            textrect.x = 64+32*(*gridrc(grid,i,j));
+            textrect.x = 64+32*(*gridrc(grid,j-vtiles/2+y+yoffset,i-htiles/2+x+xoffset));
             drawrect.x = 32*i, drawrect.y = 32*j;
             SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
         }
@@ -75,8 +75,8 @@ int render(struct player* player,struct Grid* grid){
 }
 int main(){
    struct player* player = calloc(1,sizeof(struct player)); 
-   player->x = 30;
-   player->y = 30;
+   player->coords[0] = 30;
+   player->coords[1] = 30;
    struct Grid* grid = mkmap(128,128);
    setupSDL();
    render();

@@ -2,6 +2,7 @@
 #include "player.h"
 #include "grid.h"
 #include "cell_auto_mapgen.h"
+#include "keysdown.h"
 
 #define screenwidth 640
 #define screenheight 480
@@ -79,6 +80,28 @@ int main(){
    player->coords[0] = 30;
    player->coords[1] = 30;
    struct Grid* grid = mkmap(128,128);
+   char quit = 0;
    setupSDL();
-   render(player,grid);
+   while(!quit){
+        while(SDL_PollEvent(&event)){
+            int crementer = 0;
+            keys->xk=0;
+            keys->zj=0;
+            keys->cl=0;
+            switch(event.type){
+                case SDL_KEYUP:
+                case SDL_KEYDOWN:
+                    handlekey(event,keysd);
+                    break;
+                case SDL_QUIT:
+                    quit = 1;
+                    break;
+            }
+            keys->xk=0;
+            keys->zj=0;
+            keys->cl=0;
+        }
+       render(player,grid);
+   }
+   return 0;
 }

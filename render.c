@@ -7,13 +7,12 @@
 
 #define screenwidth 640
 #define screenheight 480
-#define tiledim 20
+#define tiledim 32
 
 SDL_Renderer* renderer;
 SDL_Window* window;
 SDL_Surface* surface;
 SDL_Texture* texture;
-
 
 void quitSDL();
 int setupSDL(){
@@ -45,9 +44,9 @@ void quitSDL(){
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
-int render(struct player* player,struct Grid* grid,struct player* playarray){
-    int x = player->coords[0];
-    int y = player->coords[1];
+int render(struct player* player,struct Grid* grid,struct player** playarray){
+    int x = player->coords[1];
+    int y = player->coords[0];
     const int htiles = screenwidth/tiledim ;
     const int vtiles = screenheight/tiledim;
     int xoffset = 0,yoffset = 0;
@@ -72,27 +71,27 @@ int render(struct player* player,struct Grid* grid,struct player* playarray){
             SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
         }
     }
-    for(int i=0;i;i++){
-        struct player* p = playarray[i];
-        textrext.y = 0;
-        drawrect.x = p->x-x+htiles/2+xoffset;
-        drawrect.y = p->y-y+vtiles/2+yoffset;
-        SDL_RenderCopy(renderer,texture,&textrext,&drawrect);
+    for(int i=0;playarray[i];i++){
+        int px = playarray[i]->coords[1];
+        int py = playarray[i]->coords[0];
+        textrect.y = textrect.x = 0;
+        drawrect.x = 32*(px-x+htiles/2+xoffset);
+        drawrect.y = 32*(py-y+vtiles/2+yoffset);
+        SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
     //Update screen
     SDL_RenderPresent(renderer);
     return 0;
 }
 int main(){
-   struct player* player = calloc(1,sizeof(struct player)); 
-   player->coords[0] = 30;
-   player->coords[1] = 30;
    struct Grid* grid = mkmap(128,128);
+   struct player* player = makePlayer(grid);
    char quit = 0;
    setupSDL();
    SDL_Event event;
    struct keysdown* keys = calloc(sizeof(struct keysdown),1);
-   struct players* playarray[4];
+   struct player** playarray = calloc(sizeof(struct player*),10);
+   playarray[0] = player;
    while(!quit){
         while(SDL_PollEvent(&event)){
             int crementer = 0;
@@ -112,7 +111,7 @@ int main(){
             keys->zj=0;
             keys->cl=0;
         }
-       render(player,grid);
+       render(player,grid,playarray);
    }
    return 0;
 }

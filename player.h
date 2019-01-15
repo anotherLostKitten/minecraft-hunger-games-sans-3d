@@ -1,5 +1,6 @@
 #ifndef PLAYER
 #define PLAYER
+#include "grid.h"
 struct equipment{
     int defense;
     int attack;
@@ -22,5 +23,5 @@ struct player{
     int coords[2];
 };
 void attack(struct player* player,struct player* target);
-int makeplayer(struct Grid* grid);
+struct player* makePlayer(struct Grid* grid);
 #endif

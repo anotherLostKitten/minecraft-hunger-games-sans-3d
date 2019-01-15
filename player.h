@@ -1,12 +1,18 @@
 #ifndef PLAYER
 #define PLAYER
 #include "grid.h"
+extern char* mods[10];
+extern char* types[6];
+extern char* namearrs[6][10];
+extern char defarrs[6][10];
+extern char atkarrs[6][10];
 struct equipment{
-    int defense;
-    int attack;
-    char* name;
-    char* modifier;
-    char* type;//hat,shirt,pants,shoes,weapon,etc;
+    /* int defense; */
+    /* int attack; */
+    /* char* name; */
+    char statsindex;
+    char typeindex;
+    char modindex;
     int coords[2];
 };
 struct player{

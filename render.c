@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include "player.h"
+#include "enemy.h"
 #include "grid.h"
 #include "cell_auto_mapgen.h"
 #include "keysdown.h"
@@ -14,13 +15,12 @@ SDL_Window* window;
 SDL_Surface* surface;
 SDL_Texture* texture;
 
-void quitSDL();
 int setupSDL(){
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
         return 1;
     }
-    atexit(quitSDL);
+    atexit(SDL_Quit);
     if (SDL_CreateWindowAndRenderer(screenwidth,screenheight,SDL_WINDOW_INPUT_FOCUS,&window,&renderer)) {
         SDL_Log("Unable to initialize window and renderer: %s", SDL_GetError());
         return 1;
@@ -37,14 +37,7 @@ int setupSDL(){
     
 }
 
-void quitSDL(){
-    SDL_DestroyTexture(texture); 
-    SDL_FreeSurface(surface);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
-int render(struct player* player,struct Grid* grid,struct player** playarray){
+int render(struct player* player,struct Grid* grid,struct player** playarray,struct enemy** enemyarray,struct equipment** eqarray){
     int x = player->coords[1];
     int y = player->coords[0];
     const int htiles = screenwidth/tiledim ;
@@ -79,7 +72,23 @@ int render(struct player* player,struct Grid* grid,struct player** playarray){
         drawrect.y = 32*(py-y+vtiles/2+yoffset);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
-    //Update screen
+    /* for(int i=0;enemyarray[i];i++){ */
+    /*     int px = enemyarray[i]->coords[1]; */
+    /*     int py = enemyarray[i]->coords[0]; */
+    /*     textrect.y = textrect.x = 0; */
+    /*     drawrect.x = 32*(px-x+htiles/2+xoffset); */
+    /*     drawrect.y = 32*(py-y+vtiles/2+yoffset); */
+    /*     SDL_RenderCopy(renderer,texture,&textrect,&drawrect); */
+    /* } */
+    for(int i=0;eqarray[i];i++){
+       int px = eqarray[i]->coords[1];
+       int py = eqarray[i]->coords[0];
+       textrect.y = textrect.x = 32;
+       drawrect.x = 32*(px-x+htiles/2+xoffset);
+       drawrect.y = 32*(py-y+vtiles/2+yoffset);
+       SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
+    }
+      //Update screen
     SDL_RenderPresent(renderer);
     return 0;
 }
@@ -92,6 +101,11 @@ int main(){
    struct keysdown* keys = calloc(sizeof(struct keysdown),1);
    struct player** playarray = calloc(sizeof(struct player*),10);
    playarray[0] = player;
+   struct enemy* enemyarray[50];
+   struct equipment** eqarray = calloc(sizeof(struct equipment*),50);
+   for(int i = 0;i<50;i++){
+       enemyarray[i] = makeEnemy(grid);
+   }
    while(!quit){
         while(SDL_PollEvent(&event)){
             int crementer = 0;
@@ -111,7 +125,7 @@ int main(){
             keys->zj=0;
             keys->cl=0;
         }
-       render(player,grid,playarray);
+       render(player,grid,playarray,enemyarray,eqarray);
    }
    return 0;
 }

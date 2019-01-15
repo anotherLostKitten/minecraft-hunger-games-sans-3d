@@ -25,3 +25,4 @@ theodore 2019-01-12 14:07 - dungeneration (get it, its a portmanteau of dungeon 
 theodore 2019-01-12 15:22 - wrewrote a bunch of CAM because it was really gnarly (global variavles, copying lists instead of SWAPPING POITNERS, etc..)
 theodore 2019-01-12 16:57 - garbage hat sprites but whatever
 Jonathan Mon Jan 14 18:28:24 STD 2019 - Did rendering and updated player models and other garbagio.
+theodore 2019-01-14 21:26 sprites & item gen sort of  but not done yet but spirtes

@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include "player.h"
+
 #define NMODS 10
+
 void prandtype(struct equipment* eq){
     char* mods[10] = {"Cataclysmic","Flamboyant","Inverted","Prismatic","Congealing","Moist","Perniscious","Turbulent","Porcupinal","Flabbergasted"};
     eq->modifier = mods[rand()%10];
@@ -51,7 +53,4 @@ struct equipment* random_item(){
     struct equipment* eq = malloc(sizeof(struct equipment));
     prandtype(eq);
     return eq;
-}
-int main(){
-    free(random_item());
 }

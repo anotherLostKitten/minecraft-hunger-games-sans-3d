@@ -31,7 +31,7 @@ struct Grid*dunggen(int r,int c){
  z: while(n)
 		rndpath(map,path,&n,r,c);
 	rmgrid(path);
-	gridprint(map);
+	//gridprint(map);
 	for(int i=1;i<map->r;i+=2)
 		for(int j=1;j<map->c;j+=2)
 			if(*gridrc(map,i,j)==1&&rand()%DEADEND)
@@ -115,8 +115,9 @@ void deadend(struct Grid*map,int r,int c){
 			deadend(map,fr,fc);
 	}
 }
-
+/*
 int main(){
 	dunggen(49,99);
 	return 0;
 }
+*/

@@ -26,7 +26,7 @@ void gridprint(struct Grid*grid){
 			case 1:printf("  ");break;
 			case 0:printf("[]");break;
 			case 2:printf("--");break;
-			default:printf("??");break;
+			default:printf("%s%i",(*gridrc(grid,y,x)<10?" ":""),*gridrc(grid,y,x));break;
             }
         putchar('\n');
     }

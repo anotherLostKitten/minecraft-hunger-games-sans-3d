@@ -11,6 +11,7 @@ struct player* makePlayer(struct Grid* grid){
     struct player* pl = calloc(1,sizeof(struct player));
     pl->hp = 100;
 bac:
+    pl->coords = pl->ag.obj.coords;
     pl->coords[0] = rand()%grid->r;
     pl->coords[1] = rand()%grid->c;
     //check in some capacity that the player isn't on top of another player... or don't, the probability is really low anyway

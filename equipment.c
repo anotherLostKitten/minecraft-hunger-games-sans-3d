@@ -12,6 +12,7 @@ void prandtype(struct equipment* eq){
 }
 struct equipment* random_item(){
     struct equipment* eq = malloc(sizeof(struct equipment));
+    eq->coords = eq->obj.coords;
     prandtype(eq);
     return eq;
 }

@@ -13,5 +13,5 @@ struct enemy{
     int retarg;
     int* coords;
 };
-struct enemy* makeEnemy(struct Grid* grid);
+void makeEnemy(struct Grid* grid,struct enemy* en);
 #endif

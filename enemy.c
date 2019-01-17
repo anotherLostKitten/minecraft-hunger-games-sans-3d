@@ -5,8 +5,7 @@
 char* enemy_types[5] = {"bat","wolf","guard","wizard","monster"};
 char enemy_atk[5] = {20,30,30,60,60};
 char enemy_def[5] = {10,30,60,30,60};
-struct enemy* makeEnemy(struct Grid* grid){
-    struct enemy* en = malloc(sizeof(struct enemy));
+void makeEnemy(struct Grid* grid,struct enemy* en){
     en->coords = en->obj.coords;
     en->hp = 100;
     en->statsindex = rand()%5;
@@ -17,7 +16,6 @@ bac:
     en->coords = en->obj.coords;
     if(!gridrc(grid,en->coords[1],en->coords[0]))
         goto bac;
-    return en;
 }
 void moveEnemy(struct enemy* enemy, struct Grid* grid, struct player** playarray){
     if(enemy->target) goto targeted;

@@ -43,7 +43,7 @@ int setupSDL(){
     SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
 }
 
-int render(struct player* player,struct Grid* grid,struct player* playarray,struct enemy** enemyarray,struct equipment** eqarray){
+int render(struct player* player,struct Grid* grid,struct player* playarray,struct enemy* enemyarray,struct equipment* equarray){
     int x = player->coords[1];
     int y = player->coords[0];
     const int htiles = screenwidth/tiledim ;
@@ -80,18 +80,18 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
     /* for(int i=0;enemyarray[i];i++){ */
-    /* if(enemyarray[i]==(void*)-1) continue; */
-    /*     int px = enemyarray[i]->coords[1]; */
-    /*     int py = enemyarray[i]->coords[0]; */
+    /*     if(enemyarray[i].coords==NULL) continue; */
+    /*     int px = enemyarray[i].coords[1]; */
+    /*     int py = enemyarray[i].coords[0]; */
     /*     textrect.y = textrect.x = 0; */
     /*     drawrect.x = 32*(px-x+htiles/2+xoffset); */
     /*     drawrect.y = 32*(py-y+vtiles/2+yoffset); */
     /*     SDL_RenderCopy(renderer,texture,&textrect,&drawrect); */
     /* } */
-    for(int i=0;eqarray[i];i++){
-        if(eqarray[i]==(void*)-1) continue;
-        int px = eqarray[i]->coords[1];
-        int py = eqarray[i]->coords[0];
+    for(int i=0;i<50;i++){
+        if(equarray[i].coords==NULL) continue;
+        int px = equarray[i].coords[1];
+        int py = equarray[i].coords[0];
         textrect.y = textrect.x = 32;
         drawrect.x = 32*(px-x+htiles/2+xoffset);
         drawrect.y = 32*(py-y+vtiles/2+yoffset);
@@ -119,14 +119,19 @@ int main(){
     struct keysdown* keys = calloc(sizeof(struct keysdown),1);//NOTE CLIENT SIDE IN FINAL VERSION then it should be written to a pipe, the server should read the struct and execute as of now unimplemented actions based on this.
     makePlayer(grid,playarray);
     struct player* player= &playarray[0];
-
-    struct enemy* enemyarray[50];
-    struct equipment** eqarray = calloc(sizeof(struct equipment*),50);
+    int enemysem,enemyshm;
+    makeshm("enemyarray",&enemysem,&enemyshm,sizeof(struct enemy)*50);
+    struct enemy* enemyarray;
+    accshm(enemysem,enemyshm,-1,&enemyarray);
+    int equsem,equshm;
+    makeshm("equarray",&equsem,&equshm,sizeof(struct enemy)*50);
+    struct equipment* equarray;
+    accshm(equsem,equshm,-1,&equarray);
     char quit = 0;
     setupSDL();
     SDL_Event event;
     for(int i = 0;i<50;i++){
-        enemyarray[i] = makeEnemy(grid);
+        makeEnemy(grid,&(enemyarray[i]));
     }
     while(!quit){
         while(SDL_PollEvent(&event)){
@@ -147,9 +152,13 @@ int main(){
             keys->zj=0;
             keys->cl=0;
         }
-        render(player,grid,playarray,enemyarray,eqarray);
+        render(player,grid,playarray,enemyarray,equarray);
     }
-    accshm(playsem,playshm,1,playarray);
+    accshm(playsem,playshm,1,&playarray);
+    accshm(enemysem,enemyshm,1,&enemyarray);
+    accshm(equsem,equshm,1,&equarray);
     closeshm("playarray",playsem,playshm);
+    closeshm("enemyarray",enemysem,enemyshm);
+    closeshm("equarray",equsem,equshm);
     return 0;
 }

@@ -9,10 +9,6 @@ extern char atkarrs[6][10];
 struct object{
     int coords[2];
 };
-struct agent{
-    struct object obj;
-    int hp;
-};
 struct equipment{
     struct object obj;
     /* int defense; */
@@ -24,7 +20,7 @@ struct equipment{
     int* coords;
 };
 struct player{
-    struct agent ag;
+    struct object obj;
     int hp;
     int gold;
     struct equipment* hat;
@@ -35,5 +31,5 @@ struct player{
     struct equipment* ring;
     int* coords;
 };
-struct player* makePlayer(struct Grid* grid);
+void makePlayer(struct Grid* grid,struct player* ptr);
 #endif

@@ -6,7 +6,7 @@ extern char* enemy_types[5];
 extern char enemy_atk[5];
 extern char enemy_def[5];
 struct enemy{
-    struct agent ag;
+    struct object obj;
     char statsindex;
     int hp;
     struct player* target;

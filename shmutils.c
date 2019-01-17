@@ -13,26 +13,28 @@ union semun {
                                            (Linux-specific) */
            };
 void makeshm(char* name,int* semdescriptor,int* shmdescriptor,int memsize){
-    int temp = open(name,O_CREAT|O_TRUNC|0644);
+    int temp;
+    if(!access(name,F_OK))
+        temp = open(name,O_TRUNC|0644);
+    else
+        temp = open(name,O_CREAT|0644);
     close(temp);
     key_t key = ftok(name,0);
     *semdescriptor = semget(key,1,IPC_CREAT|0644);
-    //union semun s;
-    //s.val = 1;
     struct sembuf b;
     b.sem_op = 1, b.sem_num = 0, b.sem_flg = 0;
     *shmdescriptor = shmget(key,memsize,IPC_CREAT|0644);
     semop(*semdescriptor,&b,1);
 }
 
-void accshm(int semdescriptor,int shmdescriptor,char semp,void* dtat){
+void accshm(int semdescriptor,int shmdescriptor,char semp,void** dtat){
     struct sembuf b;
     b.sem_op = semp;
     b.sem_num = 0;
     b.sem_flg = 0;
     /* semop */
     semop(semdescriptor,&b,1);
-    if(semp<0) dtat = shmat(shmdescriptor,NULL,0);
+    if(semp<0) *dtat = shmat(shmdescriptor,NULL,0);
     else if(semp>0) shmdt(dtat);
 }
 

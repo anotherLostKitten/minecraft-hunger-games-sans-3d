@@ -43,7 +43,7 @@ int setupSDL(){
     SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
 }
 
-int render(struct player* player,struct Grid* grid,struct player** playarray,struct enemy** enemyarray,struct equipment** eqarray){
+int render(struct player* player,struct Grid* grid,struct player* playarray,struct enemy** enemyarray,struct equipment** eqarray){
     int x = player->coords[1];
     int y = player->coords[0];
     const int htiles = screenwidth/tiledim ;
@@ -70,10 +70,10 @@ int render(struct player* player,struct Grid* grid,struct player** playarray,str
             SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
         }
     }
-    for(int i=0;playarray[i];i++){
-        if(playarray[i]==(void*)-1) continue;
-        int px = playarray[i]->coords[1];
-        int py = playarray[i]->coords[0];
+    for(int i=0;i<1;i++){//only handles one player for now
+        if(playarray[i].coords==NULL) continue;
+        int px = playarray[i].coords[1];
+        int py = playarray[i].coords[0];
         textrect.y = textrect.x = 0;
         drawrect.x = 32*(px-x+htiles/2+xoffset);
         drawrect.y = 32*(py-y+vtiles/2+yoffset);
@@ -110,13 +110,16 @@ int render(struct player* player,struct Grid* grid,struct player** playarray,str
 int main(){
     //server side tasks for main server
     srand(time(NULL));
-    int gridsem,gridshm;
     struct Grid* grid = mkmap(128,128);//this is before deletion
     //send the grid to the client
-    struct player* player = makePlayer(grid);//this will make all the players in the final versio
-    struct player** playarray = calloc(sizeof(struct player*),10);
+    int playsem,playshm;
+    makeshm("playarray",&playsem,&playshm,sizeof(struct player)*1);
+    struct player* playarray;
+    accshm(playsem,playshm,-1,&playarray);
     struct keysdown* keys = calloc(sizeof(struct keysdown),1);//NOTE CLIENT SIDE IN FINAL VERSION then it should be written to a pipe, the server should read the struct and execute as of now unimplemented actions based on this.
-    playarray[0] = player;
+    makePlayer(grid,playarray);
+    struct player* player= &playarray[0];
+
     struct enemy* enemyarray[50];
     struct equipment** eqarray = calloc(sizeof(struct equipment*),50);
     char quit = 0;
@@ -146,6 +149,7 @@ int main(){
         }
         render(player,grid,playarray,enemyarray,eqarray);
     }
-    closeshm("grid",gridsem,gridshm);
+    accshm(playsem,playshm,1,playarray);
+    closeshm("playarray",playsem,playshm);
     return 0;
 }

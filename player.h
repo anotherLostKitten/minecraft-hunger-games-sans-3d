@@ -26,7 +26,6 @@ struct equipment{
 struct player{
     struct agent ag;
     int hp;
-    char* username;
     int gold;
     struct equipment* hat;
     struct equipment* shirt;
@@ -34,7 +33,6 @@ struct player{
     struct equipment* shoes;
     struct equipment* weapon;
     struct equipment* ring;
-    struct equipment** inv;
     int* coords;
 };
 struct player* makePlayer(struct Grid* grid);

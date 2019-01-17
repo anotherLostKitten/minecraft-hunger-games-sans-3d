@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "grid.h"
+#include "shmutils.h"
 
 #define PROB 45
 #define GENERATIONS 12
@@ -15,9 +17,7 @@ int mapgen(struct Grid*map,struct Grid*map2){
 	for(y=1;y<map->r;y++)
         for(x=1;x<map->c;x++)
             *gridrc(map,y,x) = ayn_rand();
-    for(y=0;y<map->r;y++)
-        for(x=0;x<map->c;x++)
-            *gridrc(map2,y,x) = 1;
+    memset(map2->elem,1,map2->r*map2->c);
     for(y=0;y<map->r;y++)
         *gridrc(map,y,0) = *gridrc(map,y,map->c-1) = 1;
     for(x=0;x<map->c;x++)
@@ -58,6 +58,7 @@ regen:
     filled = 0;
     struct Grid*map = mkgrid(r,c);
     struct Grid*map2 = mkgrid(r,c);
+    //NOTE GENERATIONS HAVE TO BE EVEN FOR THIS TO WORK!!!
 	mapgen(map,map2);
     for(int i = 0;i<GENERATIONS;i++){
         generation(map,map2);
@@ -74,7 +75,6 @@ regen:
         for(int j=0;j<c;j++)
             *gridrc(map2,i,j) = 0;
     flood(map,map2,y,x,&filled);
-    //printf("%f\n",(double) filled/(mapsize*mapsize));
     if(filled<r*c*9/20) goto regen;
     rmgrid(map);
     return map2;

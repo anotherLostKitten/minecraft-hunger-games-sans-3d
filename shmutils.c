@@ -12,26 +12,28 @@ union semun {
                struct seminfo  *__buf;  /* Buffer for IPC_INFO
                                            (Linux-specific) */
            };
-char* makeshm(char* name,int* semdescriptor,int* shmdescriptor){
+void makeshm(char* name,int* semdescriptor,int* shmdescriptor,int memsize){
     int temp = open(name,O_CREAT|O_TRUNC|0644);
     close(temp);
     key_t key = ftok(name,0);
     *semdescriptor = semget(key,1,IPC_CREAT|0644);
-    union semun s;
-    s.val = 1;
-    *shmdescriptor = shmget(key,1024,IPC_CREAT|0644);
-    semctl(*semdescriptor,0,SETVAL,&s);
+    //union semun s;
+    //s.val = 1;
+    struct sembuf b;
+    b.sem_op = 1, b.sem_num = 0, b.sem_flg = 0;
+    *shmdescriptor = shmget(key,memsize,IPC_CREAT|0644);
+    semop(*semdescriptor,&b,1);
 }
 
-int accshm(int semdescriptor,int shmdescriptor,char semnum,void* dtat){
+void accshm(int semdescriptor,int shmdescriptor,char semp,void* dtat){
     struct sembuf b;
-    b.sem_op = 0;
-    b.sem_num = semnum;
+    b.sem_op = semp;
+    b.sem_num = 0;
     b.sem_flg = 0;
     /* semop */
     semop(semdescriptor,&b,1);
-    if(semnum<0) dtat = shmat(shmdescriptor,NULL,0);
-    else if(semnum>0) shmdt(dtat);
+    if(semp<0) dtat = shmat(shmdescriptor,NULL,0);
+    else if(semp>0) shmdt(dtat);
 }
 
 void closeshm(char* name,int semdescriptor,int shmdescriptor){

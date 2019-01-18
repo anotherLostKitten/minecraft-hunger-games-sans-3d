@@ -10,7 +10,7 @@ char atkarrs[6][10] = {{8,0,0,1,1,1,1,2,4,-8},{12,0,0,1,1,2,3 ,3,6,-10},{7,0,0,1
 void makePlayer(struct Grid* grid,struct player* pl){
     pl->hp = 100;
 bac:
-    pl->coords = pl->obj.coords;
+    //pl->coords = pl->obj.coords;
     pl->coords[0] = rand()%grid->r;
     pl->coords[1] = rand()%grid->c;
     //check in some capacity that the player isn't on top of another player... or don't, the probability is really low anyway

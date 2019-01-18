@@ -1,16 +1,4 @@
-#include <SDL2/SDL.h>
-#include <sys/shm.h>
-#include <SDL2/SDL_ttf.h>
-#include <time.h>
-#include "shmutils.h"
-#include "time.h"
-#include "player.h"
-#include "enemy.h"
-#include "grid.h"
-#include "cell_auto_mapgen.h"
-#include "keysdown.h"
-#include "clikey.h"
-
+#include "render.h"
 
 #define screenwidth 640
 #define screenheight 480
@@ -107,7 +95,7 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
     SDL_RenderPresent(renderer);
     return 0;
 }
-int main(){
+/*int main(){
     //server side tasks for main server
     srand(time(NULL));
     struct Grid* grid = mkmap(128,128);//this is before deletion
@@ -162,3 +150,4 @@ int main(){
     closeshm("equarray",equsem,equshm);
     return 0;
 }
+*/

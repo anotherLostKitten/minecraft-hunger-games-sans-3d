@@ -24,7 +24,7 @@ struct equipment{
     char statsindex;
     char typeindex;
     char modindex;
-    int* coords;
+    int coords[2];
 };
 struct player{
     struct object obj;

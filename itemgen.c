@@ -27,27 +27,23 @@ struct Grid*highs(struct Grid*map, int*n){
 	return highs;
 }
 
-struct equipment*itemgen(struct Grid*map, int m){
+void itemgen(struct Grid*map, int m, struct equipment*e){
 	int n=0,cr=-1;
 	struct Grid*h=highs(map,&n);
-	if(!n){
+	if(!n)
 		rmgrid(h);
-		return NULL;
+	else{
+		srand(time(NULL));
+		for(int r=0;r<map->r;r++)
+			for(int c=0;c<map->c;c++)
+				if(*gridrc(h,r,c)&&rand()%n<m&&++cr<m){
+					int rt=r,ct=c;
+					for(int q=0;q<3;q++)
+						randir(map,&rt,&ct);
+					e[cr]=randeq(rt,ct);
+				}
+		rmgrid(h);
 	}
-	struct equipment*e=calloc(m,sizeof(struct equipment));
-	srand(time(NULL));
-	for(int r=0;r<map->r;r++)
-		for(int c=0;c<map->c;c++)
-			if(*gridrc(h,r,c)&&rand()%n<m&&++cr<m){
-				int rt=r,ct=c;
-				for(int q=0;q<3;q++)
-					randir(map,&rt,&ct);
-				e[cr]=randeq(rt,ct);
-			}
-	printf("ok\n");
-	rmgrid(h);
-	printf("\nitem ROYALE\n=====\ncords [%i,%i]\nstatsindex %i\ntypeindex %i\nmodindex %i\n",e->obj.coords[0],e->obj.coords[1],e->statsindex,e->typeindex,e->modindex);
-	return e;	
 }
 
 void randir(struct Grid*map,int*r,int*c){
@@ -73,7 +69,8 @@ struct equipment randeq(int r,int c){
 
 int main(){
 	struct Grid*map=dunggen(51,101);
-	struct equipment*items=itemgen(map,30);
+	struct equipment*items=calloc(30,sizeof(struct equipment));
+    itemgen(map,30,items);
 	for(int i=0;i<30;i++)
 		printf("\nitem %i\n=====\ncords [%i,%i]\nstatsindex %i\ntypeindex %i\nmodindex %i\n",i,items[i].obj.coords[0],items[i].obj.coords[1],items[i].statsindex,items[i].typeindex,items[i].modindex);
 	return 0;

@@ -3,39 +3,50 @@
 #include "render.h"
 #include "player.h"
 #include "fs/sockets.h"
-
-#define NUM_PLAYERS 4
+#include "enemy.h"
 
 int client(int argc, char **argv){
-    int from_server, to_server;
+    int server_socket;
     if (argc == 2)
-	server_socket = client_setup( argv[1]);
+		server_socket = client_setup( argv[1]);
     else
-	server_socket = client_setup( TEST_IP );
+		server_socket = client_setup( TEST_IP );
     setupSDL();
-    struct keysdown* keys = calloc(sizeof(struct keysdown),1);//NOTE CLIENT SIDE IN FINAL VERSION then it should be written to a pipe, the server should read the struct and execute as of now unimplemented actions based on this.
+
+	char pid;
+	struct Grid*map=calloc(sizeof(struct Grid)+MAPSIZE*MAPSIZE,1);
+	struct player*playarray=calloc(sizeof(struct player),NUM_PLAYERS);
+	struct enemy*enemyarray=calloc(sizeof(struct enemy),MAXENMY);
+	struct equipment*eqarray=calloc(sizeof(struct equipment),MAXEQ);
+	
+	read(server_socket,map,sizeof(struct Grid)+MAPSIZE*MAPSIZE);
+	read(server_socker,&pid,1);
+	
+    struct keysdown* keys = calloc(sizeof(struct keysdown),1);
     while(!quit){    
-	keys->xk=0;
-	keys->zj=0;
-	keys->cl=0;
+		keys->xk=0;
+		keys->zj=0;
+		keys->cl=0;
         while(SDL_PollEvent(&event)){
             int crementer = 0;
             keys->xk=0;
             keys->zj=0;
             keys->cl=0;
             switch(event.type){
-	    case SDL_KEYUP:
-	    case SDL_KEYDOWN:
-		handlekey(event,keys);
-		break;
-	    case SDL_QUIT:
-		quit = 1;
-		break;
+			case SDL_KEYUP:
+			case SDL_KEYDOWN:
+				handlekey(event,keys);
+				break;
+			case SDL_QUIT:
+				quit = 1;
+				break;
             }
         }
-	// send key struct
-	// get data from server
-        render(player,grid,playarray,enemyarray,eqarray);
+		write(server_socket,keys,sizeof(struct keydown));
+		read(server_socket,playarray,sizeof(struct player)*NUM_PLAYERS);
+		read(server_socket,enemyarray,sizeof(struct enemy)*MAXENMY);
+		read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);
+		render(player,grid,playarray,enemyarray,eqarray);
     }
     
     return 0;

@@ -1,6 +1,13 @@
 #ifndef PLAYER
 #define PLAYER
+
 #include "grid.h"
+
+#define MAPSIZE 255
+#define NUM_PLAYERS 4
+#define MAXEQ 50
+#define MAXENMY 50
+
 extern char* mods[10];
 extern char* types[6];
 extern char* namearrs[6][10];
@@ -32,4 +39,5 @@ struct player{
     int* coords;
 };
 void makePlayer(struct Grid* grid,struct player* ptr);
+
 #endif

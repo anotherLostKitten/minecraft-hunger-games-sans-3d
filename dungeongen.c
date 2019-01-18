@@ -3,12 +3,13 @@
 #include <time.h>
 #include "grid.h"
 #include "dungeongen.h"
+#include "cell_auto_mapgen.h"
 
 #define TPR 200
 #define MAX_TRIES 100
 #define R_SIZE_MIN 5
 #define R_SIZE_DELTA 3
-#define DEADEND 30
+#define DEADEND 20
 
 struct Grid*dunggen(int r,int c){
 	srand(time(NULL));
@@ -115,9 +116,9 @@ void deadend(struct Grid*map,int r,int c){
 			deadend(map,fr,fc);
 	}
 }
-/*
+
 int main(){
-	dunggen(49,99);
+	dunggen(255,255);
 	return 0;
 }
-*/
+

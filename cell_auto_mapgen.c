@@ -3,7 +3,6 @@
 #include <time.h>
 #include <string.h>
 #include "grid.h"
-#include "shmutils.h"
 
 #define PROB 45
 #define GENERATIONS 12
@@ -79,4 +78,3 @@ regen:
     rmgrid(map);
     return map2;
 }
-

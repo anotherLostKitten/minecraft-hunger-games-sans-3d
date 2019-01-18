@@ -4,8 +4,9 @@
 #include "player.h"
 #include "fs/sockets.h"
 #include "enemy.h"
+#include "clickey.h"
 
-int client(int argc, char **argv){
+int main(int argc, char **argv){
     int server_socket;
     if (argc == 2)
 		server_socket = client_setup( argv[1]);
@@ -14,7 +15,7 @@ int client(int argc, char **argv){
     setupSDL();
 
 	char pid;
-	struct Grid*map=calloc(sizeof(struct Grid)+MAPSIZE*MAPSIZE,1);
+	struct Grid*grid=calloc(sizeof(struct Grid)+MAPSIZE*MAPSIZE,1);
 	struct player*playarray=calloc(sizeof(struct player),NUM_PLAYERS);
 	struct enemy*enemyarray=calloc(sizeof(struct enemy),MAXENMY);
 	struct equipment*eqarray=calloc(sizeof(struct equipment),MAXEQ);
@@ -46,7 +47,7 @@ int client(int argc, char **argv){
 		read(server_socket,playarray,sizeof(struct player)*NUM_PLAYERS);
 		read(server_socket,enemyarray,sizeof(struct enemy)*MAXENMY);
 		read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);
-		render(player,grid,playarray,enemyarray,eqarray);
+		render(playarray[pid],grid,playarray,enemyarray,eqarray);
     }
     
     return 0;

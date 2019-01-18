@@ -35,7 +35,7 @@ void accshm(int semdescriptor,int shmdescriptor,char semp,void** dtat){
     /* semop */
     semop(semdescriptor,&b,1);
     if(semp<0) *dtat = shmat(shmdescriptor,NULL,0);
-    else if(semp>0) shmdt(dtat);
+    else if(semp>0) shmdt(*dtat);
 }
 
 void closeshm(char* name,int semdescriptor,int shmdescriptor){

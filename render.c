@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
-#include <time.h>
 #include <sys/shm.h>
+#include <SDL2/SDL_ttf.h>
+#include <time.h>
 #include "shmutils.h"
 #include "time.h"
 #include "player.h"
@@ -9,7 +10,6 @@
 #include "cell_auto_mapgen.h"
 #include "keysdown.h"
 #include "clikey.h"
-/* #include <SDL2/SDL_ttf.h> */
 
 
 #define screenwidth 640
@@ -97,12 +97,12 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
         drawrect.y = 32*(py-y+vtiles/2+yoffset);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
-    /* TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",23); */
-    /* SDL_Color color = {255,255,255}; */
-    /* SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "jimbob", color); */
-    /* SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage); */
+    TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",23);
+    SDL_Color color = {255,255,255};
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "jimbob", color);
+    SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
     drawrect.x = screenwidth, drawrect.y = 0, drawrect.w = 100, drawrect.h = 100;
-    /* SDL_RenderCopy(renderer,Message,NULL,&drawrect); */
+    SDL_RenderCopy(renderer,Message,NULL,&drawrect);
     //Update screen
     SDL_RenderPresent(renderer);
     return 0;

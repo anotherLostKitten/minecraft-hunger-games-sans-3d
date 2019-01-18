@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "equipment.h"
 #include "grid.h"
 #include "itemgen.h"
-
 
 #include "dungeongen.h"
 
@@ -23,7 +21,6 @@ struct Grid*highs(struct Grid*map, int*n){
 					*n+=1;
 				}
 			}
-	gridprint(highs);
 	return highs;
 }
 
@@ -67,11 +64,3 @@ struct equipment randeq(int r,int c){
 	return q;
 }
 
-int main(){
-	struct Grid*map=dunggen(51,101);
-	struct equipment*items=calloc(30,sizeof(struct equipment));
-    itemgen(map,30,items);
-	for(int i=0;i<30;i++)
-		printf("\nitem %i\n=====\ncords [%i,%i]\nstatsindex %i\ntypeindex %i\nmodindex %i\n",i,items[i].obj.coords[0],items[i].obj.coords[1],items[i].statsindex,items[i].typeindex,items[i].modindex);
-	return 0;
-}

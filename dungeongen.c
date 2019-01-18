@@ -116,8 +116,3 @@ void deadend(struct Grid*map,int r,int c){
 	}
 }
 
-int main(){
-	dunggen(255,255);
-	return 0;
-}
-

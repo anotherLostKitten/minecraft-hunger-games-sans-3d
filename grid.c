@@ -17,7 +17,7 @@ char*gridrc(struct Grid*grid,int r,int c){
 }
 
 void rmgrid(struct Grid*grid){
-    free(grid);
+	free(grid);
 }
 
 void gridprint(struct Grid*grid){

@@ -8,8 +8,8 @@
 
 #include "dungeongen.h"
 
-int*highs(struct Grid*map, int n){
-	int*t=calloc(map->r,map->c),f[n],q=0;
+struct grid*highs(struct Grid*map, int*n){
+	struct grid*highs=mkgrid(map->r,map->c);
 	for(int r=1;r<map->r-1;r++)
 		for(int c=1;c<map->c-1;c++){
 			int v=0;
@@ -18,21 +18,48 @@ int*highs(struct Grid*map, int n){
 					if(*gridrc(map,r+i*j,c+!i*j))
 						v++;
 			if(v<2){
-				if(q>map->r*map->c)
-					goto q;
-				f[q++]=r;
-				f[q++]=c;
+				*gridrc(highs,r,c)=1;
+				*n+=1;
 			}
 		}
- q:
-
+	return highs;
 }
 
-q main(){
-	struct Grid*a=dunggen(49,101); 
-	gridprint(a);
-	int*b=highs(a);
-	for(int i=0;b[i];i+=2)
-		printf("(%i,%i)\n",b[i],b[i+1]);
-	return 0;
+struct equiptment*itemgen(struct Grid*map, int m){
+	int n=0,c=-1;
+	struct grid*h=highs(map,&n);
+	struct grid*e=calloc(m,sizeof(struct equipment));
+	srand(time(NULL));
+	for(int r=0;r<map->r;r++)
+		for(int c=0;c<map->c;c++)
+			if(*gridrc(h,r,c)&&rand()%n<m&&++c<m){
+				int rt=r,ct=c;
+				for(int q=0;q<3;q++)
+					randir(map,&r,&c);
+				e[c]=randeq(rt,ct);
+			}
+	rmgrid(h);
+	return e;	
+}
+
+void randir(struct Grid*map,int*r,int*c){
+	char d=0,n=0;
+	for(char i=0;i<4;i++)
+		d|=(n+=*gridrc(map,i&2?*r:*r+i-1,i&2?*c+i-2:*c)?1:0)-n<<i;
+	for(char ra=rand()%n,i=0;i<4;i++)
+		if(d&1<<i&&!ra--){
+		    *r+=i&2?0:i-1;
+			*c+=i&2?i-2:0;
+			return;
+		}
+}
+
+struct equipment randeq(int r,int c){
+	struct object crd = {{r,c}};
+	struct equipment e = {crd, rand()%10, rand()%6, rand()%10, &e.obj.coords};
+	return e;
+}
+
+int main(){
+
 }

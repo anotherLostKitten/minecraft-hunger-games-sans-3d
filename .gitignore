@@ -3,3 +3,9 @@
 *.o
 *.out
 runner
+client
+server
+wait
+playarray
+equarray
+enemyarray

@@ -23,20 +23,15 @@ int main(int argc, char **argv){
 	
     read(server_socket,grid,sizeof(struct Grid)+MAPSIZE*MAPSIZE);
     read(server_socket,&pid,1);
-
-
     
-    struct keysdown keys;
+    struct keysdown*keys=calloc(sizeof(struct keysdown),1);
     SDL_Event event;
-    while(!quit){    
-	keys.xk=0;
-	keys.zj=0;
-	keys.cl=0;
+    while(!quit){
         while(SDL_PollEvent(&event)){
             int crementer = 0;
-            keys.xk=0;
-            keys.zj=0;
-            keys.cl=0;
+            keys->xk=0;
+            keys->zj=0;
+            keys->cl=0;
             switch(event.type){
 	    case SDL_KEYUP:
 	    case SDL_KEYDOWN:

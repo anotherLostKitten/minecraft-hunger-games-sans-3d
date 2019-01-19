@@ -11,7 +11,7 @@ int handlekey(SDL_Event event,struct keysdown* keys){
             switch(event.key.keysym.sym){
                 case SDLK_RIGHT:
                 case SDLK_a:
-                    keys->righta+=crementer;
+                    keys->rightd+=crementer;
                     break;
                 case SDLK_DOWN:
                 case SDLK_s:
@@ -19,7 +19,7 @@ int handlekey(SDL_Event event,struct keysdown* keys){
                     break;
                 case SDLK_LEFT:
                 case SDLK_d:
-                        keys->leftd+=crementer;
+                        keys->lefta+=crementer;
                         break;
                 case SDLK_UP:
                 case SDLK_w:

@@ -4,5 +4,6 @@
 #include "keysdown.h"
 
 int handlekey(SDL_Event event,struct keysdown* keys);
+void printkeys(struct keysdown* keys);
 
 #endif

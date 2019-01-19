@@ -2,42 +2,41 @@
 #include "keysdown.h"
 
 int handlekey(SDL_Event event,struct keysdown* keys){
-    int crementer = 0;
+    int multiplier = 0;
     switch(event.type){
         case SDL_KEYDOWN:
-            crementer = -2;
+            multiplier=1; 
         case SDL_KEYUP:
-            crementer++;
             switch(event.key.keysym.sym){
                 case SDLK_RIGHT:
-                case SDLK_a:
-                    keys->rightd+=crementer;
+                case SDLK_d:
+                    keys->rightd=multiplier;
                     break;
                 case SDLK_DOWN:
                 case SDLK_s:
-                    keys->downs+=crementer;
+                    keys->downs=multiplier;
                     break;
                 case SDLK_LEFT:
-                case SDLK_d:
-                        keys->lefta+=crementer;
+                case SDLK_a:
+                        keys->lefta=multiplier;
                         break;
                 case SDLK_UP:
                 case SDLK_w:
-                        keys->upw+=crementer;
+                        keys->upw=multiplier;
                         break;
                 case SDLK_z:
                 case SDLK_j:
-                        if(crementer==1)
+                        if(multiplier==1)
                             keys->zj=1;
                         break;
                 case SDLK_x:
                 case SDLK_k:
-                        if(crementer==1)
+                        if(multiplier==1)
                             keys->xk=1;
                         break;
                 case SDLK_c:
                 case SDLK_l:
-                        if(crementer==1)
+                        if(multiplier==1)
                             keys->cl=1;
                         break;
             }
@@ -45,4 +44,7 @@ int handlekey(SDL_Event event,struct keysdown* keys){
         default:
             break;
     } 
+}
+void printkeys(struct keysdown* keys){
+    printf("left %d right %d up %d down %d zj %d xk %d cl %d\n",keys->lefta,keys->rightd,keys->upw,keys->downs,keys->zj,keys->xk,keys->cl);
 }

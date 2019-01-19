@@ -123,8 +123,8 @@ int main(){
                     playarray[num_players].coords[0]=-1;
                     ded=1;
                 }
-                for(int i=0;i<MAX_PLAYERS;i+=1+(i==num_players))
-                    if(playarray[i].hp<=0)
+                for(int i=0;i<MAX_PLAYERS;i++)
+                    if(playarray[i].hp<=0&&i!=num_players)
                         eeded++;
                 if(eeded==MAX_PLAYERS-1) goto exity;
                 if(ded) goto exity;

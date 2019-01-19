@@ -106,18 +106,8 @@ int main(){
 
                 //DO GARBAGE
                 accshm(playsem,playshm,-1,&playarray);
-                char ded=0,eeded=0;
-                if(playarray[num_players].hp<=0){
-                    playarray[num_players].coords[0]=-1;
-                    ded=1;
-                }
-                for(int i=0;i<MAX_PLAYERS;i+=1+(i==num_players))
-                    if(playarray[i].hp<=0)
-                        eeded++;
-                if(eeded==MAX_PLAYERS-1) goto exity;
                 write(client_pipe,playarray,sizeof(struct player)*MAX_PLAYERS);
 
-                if(ded) goto exity;
                 accshm(playsem,playshm,1,&playarray);
                 //player = &playarray[num_players];
                 //access and write enemy array to the client
@@ -128,8 +118,17 @@ int main(){
                 accshm(equsem,equshm,-1,&equarray);
                 write(client_pipe,equarray,sizeof(struct equipment)*MAXEQ);
                 accshm(equsem,equshm,1,&equarray);
-                //enemove 
                 accshm(playsem,playshm,-1,&playarray);
+                char ded=0,eeded=0;
+                if(playarray[num_players].hp<=0){
+                    playarray[num_players].coords[0]=-1;
+                    ded=1;
+                }
+                for(int i=0;i<MAX_PLAYERS;i+=1+(i==num_players))
+                    if(playarray[i].hp<=0)
+                        eeded++;
+                if(eeded==MAX_PLAYERS-1) goto exity;
+                if(ded) goto exity;
                 int hpmax=0,hpind=0;
                 for(int i =0;i<MAX_PLAYERS;i++){
                     if(hpmax<playarray[i].hp){

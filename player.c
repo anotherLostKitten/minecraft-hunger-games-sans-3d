@@ -17,7 +17,7 @@ bac:
     pl->coords[1] = rand()%grid->c;
     for(int i=0;i<6;i++) pl->equipment[i]=-1;
     //check in some capacity that the player isn't on top of another player... or don't, the probability is really low anyway
-    if(!gridrc(grid,pl->coords[1],pl->coords[0])||!*gridrc(grid,pl->coords[1],pl->coords[0]))
+    if(!gridrc(grid,pl->coords[0],pl->coords[1])||!*gridrc(grid,pl->coords[0],pl->coords[1]))
         goto bac;
     //pl->username assigned by something
 }

@@ -70,7 +70,8 @@ int main(){
             struct player* player;
             accshm(playsem,playshm,-1,&playarray);
             write(client_pipe,playarray,sizeof(struct player)*MAX_PLAYERS);
-            accshm(playsem,playshm,1,&playarray);
+			printf("[%i,%i]\n",playarray[num_players].coords[0],playarray[num_players].coords[1]);
+			accshm(playsem,playshm,1,&playarray);
             //player = &playarray[num_players];
             //access and write enemy array to the client
             accshm(enemysem,enemyshm,-1,&enemyarray);

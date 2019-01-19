@@ -14,7 +14,7 @@ void makeEnemy(struct Grid* grid,struct enemy* en){
 bac:
     en->coords[0] = rand()%(grid->r);
     en->coords[1] = rand()%(grid->c);
-    if(!gridrc(grid,en->coords[1],en->coords[0]))
+    if(!gridrc(grid,en->coords[0],en->coords[1]))
         goto bac;
 }
 void enemove(struct Grid* grid,struct enemy en,struct player* playarray){

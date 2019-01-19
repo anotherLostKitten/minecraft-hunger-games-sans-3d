@@ -15,8 +15,9 @@ bac:
     //pl->coords = pl->obj.coords;
     pl->coords[0] = rand()%grid->r;
     pl->coords[1] = rand()%grid->c;
+    for(int i=0;i<6;i++) pl->equipment[i]=-1;
     //check in some capacity that the player isn't on top of another player... or don't, the probability is really low anyway
-    if(!*gridrc(grid,pl->coords[1],pl->coords[0]))
+    if(!gridrc(grid,pl->coords[1],pl->coords[0])||!*gridrc(grid,pl->coords[1],pl->coords[0]))
         goto bac;
     //pl->username assigned by something
 }
@@ -26,15 +27,15 @@ int eq(char aord,struct equipment eq){
 void attack(struct player player,struct player target,struct equipment* eqarray){
     int atk = 0,def = 0;
     for(int i=0;i<6;i++){
-        atk+=(player.equipment[i]!=-1)*eq('a',eqarray[player.equipment[i]]);
-        def+=(target.equipment[i]!=-1)*eq('d',eqarray[target.equipment[i]]);
+        if(player.equipment[i]!=-1) atk+=eq('a',eqarray[player.equipment[i]]);
+        if(target.equipment[i]!=-1) def+=eq('d',eqarray[target.equipment[i]]);
     }
     target.hp -= atk/def * 10;
 }
 void attackE(struct player player,struct enemy target,struct equipment* eqarray){
     int atk = 0;
     for(int i=0;i<6;i++)
-        atk+=(player.equipment[i]!=-1)*eq('a',eqarray[player.equipment[i]]);
+        if(player.equipment[i]!=-1) atk+=eq('a',eqarray[player.equipment[i]]);
     int def = enemy_def[target.statsindex];
     target.hp -= atk/def * 10;
 }
@@ -42,7 +43,7 @@ void Eattack(struct enemy aggressor,struct player target,struct equipment* eqarr
     int atk = enemy_atk[aggressor.statsindex];
     int def = 0;
     for(int i=0;i<6;i++)
-        def+=(target.equipment[i]!=-1)*eq('d',eqarray[target.equipment[i]]);
+        if(target.equipment[i]!=-1) def+=eq('d',eqarray[target.equipment[i]]);
     target.hp -= atk/def * 10;
 }
 

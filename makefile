@@ -1,39 +1,39 @@
-server: gameloop.o sockets.o grid.o dungeongen.o enemy.o itemgen.o input.o pkp.o player.o recieve.o shmutils.o cell_auto_mapgen.o
-	gcc gameloop.o sockets.o grid.o dungeongen.o enemy.o itemgen.o input.o pkp.o player.o recieve.o shmutils.o  cell_auto_mapgen.o -o server
+server: gameloop.o sockets.o grid.o dungeongen.o enemy.o itemgen.o  pkp.o player.o recieve.o shmutils.o cell_auto_mapgen.o
+	gcc gameloop.o sockets.o grid.o dungeongen.o enemy.o itemgen.o  pkp.o player.o recieve.o shmutils.o  cell_auto_mapgen.o -o server -g
 client: client.o sockets.o render.o grid.o clikey.o player.o enemy.o itemgen.o
-	gcc client.o sockets.o render.o grid.o clikey.o player.o enemy.o itemgen.o -lSDL2 -lSDL2_ttf -o client
+	gcc client.o sockets.o render.o grid.o clikey.o player.o enemy.o itemgen.o -lSDL2 -lSDL2_ttf -o client -g
 updategamestate.o: updategamestate.c
-	gcc -c updategamestate.c
+	gcc -c updategamestate.c -g
 render.o: render.c
-	gcc -c render.c
+	gcc -c render.c -g
 gameloop.o: gameloop.c
-	gcc -c gameloop.c
+	gcc -c gameloop.c -g
 sockets.o: fs/sockets.c
-	gcc -c fs/sockets.c
+	gcc -c fs/sockets.c -g
 grid.o: grid.c
-	gcc -c grid.c
+	gcc -c grid.c -g
 clikey.o: clikey.c
-	gcc -c clikey.c
+	gcc -c clikey.c -g
 client.o: client.c
-	gcc -c client.c
+	gcc -c client.c -g
 dungeongen.o: dungeongen.c
-	gcc -c dungeongen.c
+	gcc -c dungeongen.c -g
 enemy.o: enemy.c
-	gcc -c enemy.c
+	gcc -c enemy.c -g
 itemgen.o: itemgen.c
-	gcc -c itemgen.c
+	gcc -c itemgen.c -g
 input.o: input.c
-	gcc -c input.c
+	gcc -c input.c -g
 pkp.o: pkp.c
-	gcc -c pkp.c
+	gcc -c pkp.c -g
 player.o: player.c
-	gcc -c player.c
+	gcc -c player.c -g
 recieve.o: recieve.c
-	gcc -c recieve.c
+	gcc -c recieve.c -g
 shmutils.o: shmutils.c
-	gcc -c shmutils.c
+	gcc -c shmutils.c -g
 cell_auto_mapgen.o: cell_auto_mapgen.c
-	gcc -c cell_auto_mapgen.c
+	gcc -c cell_auto_mapgen.c -g
 run_server: server
 	./server
 run_client: client

@@ -36,15 +36,7 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
     int y = player->coords[0];
     const int htiles = screenwidth/tiledim ;
     const int vtiles = screenheight/tiledim;
-    int xoffset = 0,yoffset = 0;
-    if(grid->c - x < htiles/2)
-        x = grid->c - htiles/2,xoffset = htiles/2 - (grid->c - x);
-    else if(x<htiles/2)
-        x = htiles/2,xoffset = x - htiles/2;
-    if(grid->r - y < vtiles/2)
-        y = grid->r - vtiles/2,yoffset = vtiles/2 - (grid->r - y);
-    else if(y< vtiles/2)
-        y = vtiles/2,yoffset = y - vtiles/2;
+    //puts("clearing for render");
     //Clear screen
     SDL_RenderClear(renderer);
     //Render texture to screen
@@ -53,45 +45,58 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
     textrect.h = textrect.w = drawrect.h = drawrect.w = 32;
     for(int i=0;i<htiles;i++){
         for(int j=0;j<vtiles;j++){
-            textrect.x = 64+32*(*gridrc(grid,j-vtiles/2+y+yoffset,i-htiles/2+x+xoffset));
+            char* wallstat = gridrc(grid,y+j-vtiles/2,x+i-htiles/2);
+            textrect.x = 64+32*(wallstat?*wallstat:0);
             drawrect.x = 32*i, drawrect.y = 32*j;
             SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
         }
     }
-    for(int i=0;i<MAX_PLAYERS;i++){//only handles one player for now
+    //puts("rendering tiles");
+    for(int i=0;i<NUM_PLAYERS;i++){
         if(playarray[i].coords[0]==-1) continue;
         int px = playarray[i].coords[1];
         int py = playarray[i].coords[0];
         textrect.y = textrect.x = 0;
-        drawrect.x = 32*(px-x+htiles/2+xoffset);
-        drawrect.y = 32*(py-y+vtiles/2+yoffset);
+        drawrect.x = 32*(px-x+htiles/2);
+        drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
+    //puts("rendered players");
     for(int i=0;i<MAXENMY;i++){
         if(enemyarray[i].coords[0]==-1) continue;
         int px = enemyarray[i].coords[1];
         int py = enemyarray[i].coords[0];
         textrect.y = 0;
         textrect.x = 32;
-        drawrect.x = 32*(px-x+htiles/2+xoffset);
-        drawrect.y = 32*(py-y+vtiles/2+yoffset);
+        drawrect.x = 32*(px-x+htiles/2);
+        drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
+    //puts("rendered enemies");
     for(int i=0;i<MAXEQ;i++){
         if(equarray[i].coords[0]==-1) continue;
         int px = equarray[i].coords[1];
         int py = equarray[i].coords[0];
         textrect.y = textrect.x = 32;
-        drawrect.x = 32*(px-x+htiles/2+xoffset);
-        drawrect.y = 32*(py-y+vtiles/2+yoffset);
+        drawrect.x = 32*(px-x+htiles/2);
+        drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
     TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",23);
     SDL_Color color = {255,255,255};
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "jimbob", color);
     SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-    drawretiledimct.x = screenwidth, drawrect.y = 0, drawrect.w = 100, drawrect.h = 100;
+    drawrect.x = screenwidth, drawrect.y = 0, drawrect.w = 100, drawrect.h = 100;
     //draw the item pictures to the sides
+
+    for(int i=0;i<6;i++){
+        if(player->equipment[i]==-1)continue;
+        textrect.y = 64+equarray[player->equipment[i]].statsindex*32;
+        textrect.x = 32*equarray[player->equipment[i]].typeindex;
+        drawrect.y = 128+48*i;
+        drawrect.x = screenwidth+30;
+        SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
+    }
 
     //end of drawing item pictures
     SDL_RenderCopy(renderer,Message,NULL,&drawrect);
@@ -99,7 +104,6 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
     SDL_RenderPresent(renderer);
     return 0;
 }
-int main(){};
 /*   //server side tasks for main server
     srand(time(NULL));
     struct Grid* grid = mkmap(128,128);//this is before deletion

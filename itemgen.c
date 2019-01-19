@@ -28,20 +28,19 @@ struct Grid*highs(struct Grid*map, int*n){
 void itemgen(struct Grid*map, int m, struct equipment*e){
 	int n=0,cr=-1;
 	struct Grid*h=highs(map,&n);
-	if(!n)
-		rmgrid(h);
-	else{
+	if(n){
 		srand(time(NULL));
 		for(int r=0;r<map->r;r++)
 			for(int c=0;c<map->c;c++)
 				if(*gridrc(h,r,c)&&rand()%n<m&&++cr<m){
 					int rt=r,ct=c;
-					for(int q=0;q<3;q++)
+					for(int q=0;q<3||!*gridrc(map,rt,ct);q++)
 						randir(map,&rt,&ct);
 					e[cr]=randeq(rt,ct);
+					prtinf("item spanwed at [%i,%i] -- map = %i\n",rt,ct,*gridrc(map,rt,ct));
 				}
-		rmgrid(h);
 	}
+	rmgrid(h);
 }
 
 void randir(struct Grid*map,int*r,int*c){
@@ -52,7 +51,7 @@ void randir(struct Grid*map,int*r,int*c){
 	}
 	if(n)
 		for(char ra=rand()%n,i=0;i<4;i++)
-			if(d&1<<i&&!ra--){
+			if(d&(1<<i)&&!ra--){
 				*r+=i&2?0:i-1;
 				*c+=i&2?i-2:0;
 				return;
@@ -61,7 +60,7 @@ void randir(struct Grid*map,int*r,int*c){
 
 struct equipment randeq(int r,int c){
 	struct object crd = {{r,c}};
-	struct equipment q = {crd, rand()%10, rand()%6, rand()%10, r, c};
+	struct equipment q = {crd, rand()%10, rand()%6, rand()%10, {r, c}};
 	return q;
 }
 

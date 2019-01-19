@@ -3,6 +3,7 @@
 #include <time.h>
 #include "grid.h"
 #include "itemgen.h"
+#include "player.h"
 
 #include "dungeongen.h"
 
@@ -62,5 +63,29 @@ struct equipment randeq(int r,int c){
 	struct object crd = {{r,c}};
 	struct equipment q = {crd, rand()%10, rand()%6, rand()%10, r, c};
 	return q;
+}
+
+
+char item_vacant(struct equipment*eqarray,int r,int c){
+	for(int i=0;i<MAXEQ&&eqarray[i].coords;i++)
+		if(eqarray[i].coords[0]==r&&eqarray[i].coords[1]==c)
+			return 0;
+	return 1;
+}
+
+void dropitems(struct player*p,struct equipment*eqarray,struct Grid*map){
+	for(int i=0;i<6;i++)
+		if(p->equipment[i]+1){
+			int r=p->coords[0],c=p->coords[1];
+			while(1){
+				if(item_vacant(eqarray,r,c)){
+					eqarray[p->equipment[i]].coords[0]=r;
+					eqarray[p->equipment[i]].coords[1]=c;
+					break;
+				}
+				randir(map,&r,&c);
+			}
+			p->equipment[i]=-1;
+		}
 }
 

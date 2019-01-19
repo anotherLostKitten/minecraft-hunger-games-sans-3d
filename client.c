@@ -23,7 +23,7 @@ int main(int argc, char **argv){
     read(server_socket,grid,sizeof(struct Grid)+MAPSIZE*MAPSIZE);
     read(server_socket,&pid,1);
 
-    gridprint(grid);
+    //gridprint(grid);
     printf("%i\n",pid);
     
     struct keysdown*keys=calloc(sizeof(struct keysdown),1);

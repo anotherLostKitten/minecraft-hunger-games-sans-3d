@@ -23,10 +23,10 @@ void makeshm(char* name,int* semdescriptor,int* shmdescriptor,int memsize){
     close(temp);
     key_t key = ftok(name,0);
     *semdescriptor = semget(key,1,IPC_CREAT|0644);
-    struct sembuf b;
-    b.sem_op = 1, b.sem_num = 0, b.sem_flg = 0;
+    union semun sn;
+    sn.val = 1;
+    semctl(*semdescriptor,0,SETVAL,1);
     *shmdescriptor = shmget(key,memsize,IPC_CREAT|0644);
-    semop(*semdescriptor,&b,1);
 }
 
 void accshm(int semdescriptor,int shmdescriptor,char semp,void** dtat){

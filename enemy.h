@@ -11,7 +11,7 @@ struct enemy{
     int hp;
     struct player* target;
     int retarg;
-    int* coords;
+    int coords[2];
 };
 void makeEnemy(struct Grid* grid,struct enemy* en);
 void enemove(struct Grid* grid,struct enemy en,struct player* playarray);

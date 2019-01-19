@@ -14,7 +14,7 @@
 #include "pkp.h"
 
 #define BILLION 1000000000
-#define MAX_PLAYERS 6
+#define MAX_PLAYERS 4
 #define FPS 2
 
 int main(){
@@ -58,7 +58,9 @@ int main(){
     for(char num_players=0;num_players<MAX_PLAYERS;num_players++){
         if(num_players==MAX_PLAYERS-1||fork()){
             int client_pipe = server_connect(&wkp);
+            printf("%d %d\n",MAX_PLAYERS-1,num_players);
             accshm(waitsem,waitshm,num_players==MAX_PLAYERS-1?4:-1,&junk);
+            if(num_players==MAX_PLAYERS) closeshm("wait",waitsem,waitshm);
 
             //write grid to client
             write(client_pipe,grid,sizeof(struct Grid)+grid->r*grid->c);

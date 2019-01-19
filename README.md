@@ -20,3 +20,4 @@ To run the project, first launch the server with `make run_server`, and run clie
 
 What currently works is a screen renders with a player (who is a rabbit) and perhaps enemies (skeletons) and equipment (chests). All this information comes from the server via sockets.
 In the coming few days we plan to get input working, we are very sorry we couldn't get it working yet.
+4 players are needed for the game to start.

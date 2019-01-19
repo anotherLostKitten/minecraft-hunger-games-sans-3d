@@ -43,6 +43,7 @@ int main(int argc, char **argv){
             handlekey(event,keys);
         }
 		write(server_socket,keys,sizeof(struct keysdown));
+        if(keys->quit) quit=1;
 		read(server_socket,playarray,sizeof(struct player)*NUM_PLAYERS);
 		read(server_socket,enemyarray,sizeof(struct enemy)*MAXENMY);
 		read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);

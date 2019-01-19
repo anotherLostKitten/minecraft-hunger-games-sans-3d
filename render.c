@@ -71,7 +71,8 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
         if(enemyarray[i].coords[0]==-1) continue;
         int px = enemyarray[i].coords[1];
         int py = enemyarray[i].coords[0];
-        textrect.y = textrect.x = ;
+        textrect.y = 0;
+        textrect.x = 32;
         drawrect.x = 32*(px-x+htiles/2+xoffset);
         drawrect.y = 32*(py-y+vtiles/2+yoffset);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
@@ -89,14 +90,17 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
     SDL_Color color = {255,255,255};
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "jimbob", color);
     SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-    drawrect.x = screenwidth, drawrect.y = 0, drawrect.w = 100, drawrect.h = 100;
+    drawretiledimct.x = screenwidth, drawrect.y = 0, drawrect.w = 100, drawrect.h = 100;
+    //draw the item pictures to the sides
+
+    //end of drawing item pictures
     SDL_RenderCopy(renderer,Message,NULL,&drawrect);
     //Update screen
     SDL_RenderPresent(renderer);
     return 0;
 }
-/*int main(){
-    //server side tasks for main server
+int main(){};
+/*   //server side tasks for main server
     srand(time(NULL));
     struct Grid* grid = mkmap(128,128);//this is before deletion
     //send the grid to the client

@@ -24,15 +24,15 @@ int eq(char aord,struct equipment eq){
 void attack(struct player player,struct player target,struct equipment* eqarray){
     int atk = 0,def = 0;
     for(int i=0;i<6;i++){
-        atk+=eq('a',eqarray[player.equipment[i]]);
-        def+=eq('d',eqarray[target.equipment[i]]);
+        atk+=(player.equipment[i]!=-1)*eq('a',eqarray[player.equipment[i]]);
+        def+=(target.equipment[i]!=-1)*eq('d',eqarray[target.equipment[i]]);
     }
     target.hp -= atk/def * 10;
 }
 void attackE(struct player player,struct enemy target,struct equipment* eqarray){
     int atk = 0;
     for(int i=0;i<6;i++)
-        atk+=eq('a',eqarray[player.equipment[i]]);
+        atk+=(player.equipment[i]!=-1)*eq('a',eqarray[player.equipment[i]]);
     int def = enemy_def[target.statsindex];
     target.hp -= atk/def * 10;
 }
@@ -40,6 +40,6 @@ void Eattack(struct enemy aggressor,struct player target,struct equipment* eqarr
     int atk = enemy_atk[aggressor.statsindex];
     int def = 0;
     for(int i=0;i<6;i++)
-        def+=eq('d',eqarray[target.equipment[i]]);
+        def+=(target.equipment[i]!=-1)*eq('d',eqarray[target.equipment[i]]);
     target.hp -= atk/def * 10;
 }

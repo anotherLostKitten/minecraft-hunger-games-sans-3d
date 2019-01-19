@@ -143,7 +143,7 @@ int main(){
                 for(int i=0;i<MAX_PLAYERS;i++)
                     if(playarray[i].coords[0]==-1)
                         eeded++;
-                printf("%d\n",eeded);
+                //printf("%d\n",eeded);
                 if(eeded==MAX_PLAYERS-1) goto exity;
                 if(ded) exit(0);
                 int hpmax=0,hpind=0;
@@ -153,12 +153,12 @@ int main(){
                         hpmax=playarray[i].hp;
                     }
                 }
-                printf("hpind:%i pid:%i\n",hpind,num_players);
+                //printf("hpind:%i pid:%i\n",hpind,num_players);
                 if(num_players==hpind){
                     accshm(enemysem,enemyshm,-1,&enemyarray);
                     //enemy movement
                     for(int i=0;i<MAXENMY;i++){
-                        enemove(grid,enemyarray[i],playarray); 
+                        enemove(grid,enemyarray+i,playarray);
                     }
                     accshm(enemysem,enemyshm,1,&enemyarray);
                 }

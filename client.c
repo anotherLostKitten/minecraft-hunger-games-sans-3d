@@ -53,13 +53,13 @@ int main(int argc, char **argv){
         for(int i=0;i<NUM_PLAYERS;i++)
             if(playarray[i].coords[0]==-1)
                 eeded++;
-        printf("%d\n",eeded);
+//        printf("%d\n",eeded);
         if(eeded==NUM_PLAYERS-1){
             puts("YOU WON!");
             break;
         }
     q: 	render(pid,grid,playarray,enemyarray,eqarray);
     }
-    
+    close(server_socket);
     return 0;
 }

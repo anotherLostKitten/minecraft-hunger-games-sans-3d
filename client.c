@@ -31,6 +31,7 @@ int main(int argc, char **argv){
 	SDL_Event event;
 	
 	read(server_socket,playarray,sizeof(struct player)*NUM_PLAYERS);
+	printf("[%i,%i]\n",playarray[pid].coords[0],playarray[pid].coords[1]);
 	read(server_socket,enemyarray,sizeof(struct enemy)*MAXENMY);
 	read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);
 

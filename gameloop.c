@@ -135,7 +135,8 @@ int main(){
                         hpind=i;
                         hpmax=playarray[i].hp;
                     }
-                }
+		}
+		printf("hpind:%i pid:%i\n",hpind,num_players);
                 if(num_players==hpind){
                     accshm(enemysem,enemyshm,-1,&enemyarray);
                     //enemy movement

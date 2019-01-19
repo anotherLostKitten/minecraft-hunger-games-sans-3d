@@ -10,6 +10,8 @@
 #include "player.h"
 #include "enemy.h"
 #include "cell_auto_mapgen.h"
+#include "keysdown.h"
+#include "pkp.h"
 
 #define BILLION 1000000000
 #define MAX_PLAYERS 6
@@ -17,23 +19,10 @@
 
 int main(){
     srand(time(NULL));
-    int sd=socket(AF_INET,SOCK_STREAM,0);
-    if(!sd)
-        exit(1);
-    struct addrinfo*hints,*results;
-    hints=(struct addrinfo*)calloc(1,sizeof(struct addrinfo));
-    hints->ai_family=AF_INET;//IPv4 address
-    hints->ai_socktype=SOCK_STREAM;//TCP socket
-    hints->ai_flags=AI_PASSIVE;//Use all valid addresses
-    getaddrinfo(NULL,PORT,hints,&results);//NULL = local address
-    if(bind(sd,results->ai_addr,results->ai_addrlen))
-        exit(1);
-    if(listen(sd,10))
-        exit(1);
-    free(hints);
-    freeaddrinfo(results);
-
     //make grid
+
+    int wkp=server_setup();
+
     struct Grid* grid = mkmap(130,128);
     struct timespec start, end;
     clock_gettime(CLOCK_MONOTONIC_RAW, &start);
@@ -65,18 +54,27 @@ int main(){
     //initialize all the subservers
     for(char num_players=0;num_players<MAX_PLAYERS;num_players++){
         if(num_players==MAX_PLAYERS-1||fork()){
-            struct player* player= &playarray[num_players];
-            int to_client, from_client;
-            to_client=sd;
-            from_client = server_connect(&to_client);
+            int client_pipe = server_connect(&wkp);
             //write grid to client
-            write(to_client,grid,sizeof(struct Grid)+grid->r*grid->c);
+            write(client_pipe,grid,sizeof(struct Grid)+grid->r*grid->c);
             //write player number to client
-            write(to_client,&num_players,4);
+            write(client_pipe,&num_players,4);
             //access and write player array to the client
+            struct player* player;
             accshm(playsem,playshm,-1,&playarray);
-            write(to_client,playarray,sizeof(player));
+            write(client_pipe,playarray,sizeof(struct player)*MAX_PLAYERS);
             accshm(playsem,playshm,1,&playarray);
+            //player = &playarray[num_players];
+            //access and write enemy array to the client
+            accshm(enemysem,enemyshm,-1,&enemyarray);
+            write(client_pipe,enemyarray,sizeof(struct enemy)*50);
+            accshm(enemysem,enemyshm,1,&enemyarray);
+            //access and write equipment array to the client
+            accshm(equsem,equshm,-1,&equarray);
+            write(client_pipe,equarray,sizeof(struct equipment)*50);
+            accshm(equsem,equshm,1,&equarray);
+
+            struct keysdown* keystruct;
 
             while(1/*temp*/){
                 long int nanoseconds = (end.tv_sec - start.tv_sec) * 1000000000 + (end.tv_nsec - start.tv_nsec);
@@ -86,8 +84,29 @@ int main(){
                 sleepytime->tv_sec = 0;
                 nanosleep(sleepytime,NULL);
                 clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-                //DO GARBAGE
 
+                //recieve keysdown struct from client
+                read(client_pipe,keystruct,sizeof(struct keysdown));
+
+                accshm(playsem,playshm,-1,&playarray);
+                accshm(enemysem,enemyshm,-1,&enemyarray);
+                process_keypress(keystruct,num_players,grid,playarray,enemyarray);
+                accshm(enemysem,enemyshm,1,&enemyarray);
+                accshm(playsem,playshm,1,&playarray);
+               
+                //DO GARBAGE
+                accshm(playsem,playshm,-1,&playarray);
+                write(client_pipe,playarray,sizeof(struct player)*MAX_PLAYERS);
+                accshm(playsem,playshm,1,&playarray);
+                //player = &playarray[num_players];
+                //access and write enemy array to the client
+                accshm(enemysem,enemyshm,-1,&enemyarray);
+                write(client_pipe,enemyarray,sizeof(struct enemy)*50);
+                accshm(enemysem,enemyshm,1,&enemyarray);
+                //access and write equipment array to the client
+                accshm(equsem,equshm,-1,&equarray);
+                write(client_pipe,equarray,sizeof(struct equipment)*50);
+                accshm(equsem,equshm,1,&equarray);
                 clock_gettime(CLOCK_MONOTONIC_RAW, &end);
             }
         }
@@ -95,6 +114,7 @@ int main(){
     closeshm("playarray",playsem,playshm);
     closeshm("enemyarray",enemysem,enemyshm);
     closeshm("equarray",equsem,equshm);
+    rmgrid(grid);
     return 0;
 }
 

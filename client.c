@@ -26,17 +26,17 @@ int main(int argc, char **argv){
 
 
     
-    struct keysdown* keys = calloc(sizeof(struct keysdown),1);
+    struct keysdown keys;
     SDL_Event event;
     while(!quit){    
-	keys->xk=0;
-	keys->zj=0;
-	keys->cl=0;
+	keys.xk=0;
+	keys.zj=0;
+	keys.cl=0;
         while(SDL_PollEvent(&event)){
             int crementer = 0;
-            keys->xk=0;
-            keys->zj=0;
-            keys->cl=0;
+            keys.xk=0;
+            keys.zj=0;
+            keys.cl=0;
             switch(event.type){
 	    case SDL_KEYUP:
 	    case SDL_KEYDOWN:

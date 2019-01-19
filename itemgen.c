@@ -60,7 +60,7 @@ void randir(struct Grid*map,int*r,int*c){
 
 struct equipment randeq(int r,int c){
 	struct object crd = {{r,c}};
-	struct equipment q = {crd, rand()%10, rand()%6, rand()%10, NULL};
+	struct equipment q = {crd, rand()%10, rand()%6, rand()%10, r, c};
 	return q;
 }
 

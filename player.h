@@ -36,7 +36,7 @@ struct player{
     struct equipment* shoes;
     struct equipment* weapon;
     struct equipment* ring;
-    int* coords;
+    int coords[2];
 };
 void makePlayer(struct Grid* grid,struct player* ptr);
 

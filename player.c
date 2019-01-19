@@ -21,18 +21,18 @@ bac:
 int eq(char aord,struct equipment* eq){
     return aord=='a'?atkarrs[eq->typeindex][eq->statsindex]:defarrs[eq->typeindex][eq->statsindex];
 }
-void attack(struct player* player,struct player* target){
-    int atk = eq('a',player->hat)+ eq('a',player->shirt)+ eq('a',player->pants)+ eq('a',player->shoes)+  eq('a',player->weapon);
-    int def = eq('d',target->hat)+ eq('d',target->shirt)+ eq('d',target->pants)+ eq('d',target->shoes)+  eq('d',target->weapon);
-    target->hp -= atk/def * 10;
+void attack(struct player player,struct player target){
+    int atk = eq('a',player.hat)+ eq('a',player.shirt)+ eq('a',player.pants)+ eq('a',player.shoes)+  eq('a',player.weapon);
+    int def = eq('d',target.hat)+ eq('d',target.shirt)+ eq('d',target.pants)+ eq('d',target.shoes)+  eq('d',target.weapon);
+    target.hp -= atk/def * 10;
 }
-void attackE(struct player* player,struct enemy* target){
-    int atk = eq('a',player->hat)+ eq('a',player->shirt)+ eq('a',player->pants)+ eq('a',player->shoes)+  eq('a',player->weapon);
-    int def = enemy_def[target->statsindex];
-    target->hp -= atk/def * 10;
+void attackE(struct player player,struct enemy target){
+    int atk = eq('a',player.hat)+ eq('a',player.shirt)+ eq('a',player.pants)+ eq('a',player.shoes)+  eq('a',player.weapon);
+    int def = enemy_def[target.statsindex];
+    target.hp -= atk/def * 10;
 }
-void Eattack(struct enemy* aggressor,struct player* target){
-    int atk = enemy_atk[aggressor->statsindex];
-    int def = eq('d',target->hat)+ eq('d',target->shirt)+ eq('d',target->pants)+ eq('d',target->shoes)+  eq('d',target->weapon);
-    target->hp -= atk/def * 10;
+void Eattack(struct enemy aggressor,struct player target){
+    int atk = enemy_atk[aggressor.statsindex];
+    int def = eq('d',target.hat)+ eq('d',target.shirt)+ eq('d',target.pants)+ eq('d',target.shoes)+  eq('d',target.weapon);
+    target.hp -= atk/def * 10;
 }

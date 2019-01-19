@@ -1,9 +1,9 @@
 #ifndef KEYSDOWN
 #define KEYSDOWN
 struct keysdown{
-    char righta;
+    char rightd;
     char downs;
-    char leftd;
+    char lefta;
     char upw;
     char zj;
     char xk;

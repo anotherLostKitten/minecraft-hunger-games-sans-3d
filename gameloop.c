@@ -24,7 +24,7 @@ int main(){
 
     int wkp=server_setup();
 
-    struct Grid* grid = mkmap(130,128);
+    struct Grid* grid = mkmap(MAPSIZE,MAPSIZE);
     struct timespec start, end;
     //initialize player array shared memory
     int playsem,playshm;
@@ -56,17 +56,17 @@ int main(){
     accshm(waitsem,waitshm,-1,&junk);
     clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     //initialize all the subservers
-    for(char num_players=0;num_players<MAX_PLAYERS;num_players++){
+    for(int num_players=0;num_players<MAX_PLAYERS;num_players++){
         if(num_players==MAX_PLAYERS-1||fork()){
             int client_pipe = server_connect(wkp);
             accshm(waitsem,waitshm,num_players==MAX_PLAYERS-1?4:-1,&junk);
-            if(num_players==MAX_PLAYERS) closeshm("wait",waitsem,waitshm);
-
-            //write grid to client
-            write(client_pipe,grid,sizeof(struct Grid)+grid->r*grid->c);
+            if(num_players==MAX_PLAYERS-1) closeshm("wait",waitsem,waitshm);
             //write player number to client
             printf("%d\n",num_players);
-            write(client_pipe,&num_players,sizeof(char));
+            write(client_pipe,&num_players,sizeof(int));
+            printf("%d\n",num_players);
+            //write grid to client
+            write(client_pipe,grid,sizeof(struct Grid)+MAPSIZE*MAPSIZE);
             //access and write player array to the client
             struct player* player;
             accshm(playsem,playshm,-1,&playarray);

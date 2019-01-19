@@ -1,7 +1,7 @@
 server: gameloop.o sockets.o grid.o dungeongen.o enemy.o itemgen.o input.o pkp.o player.o recieve.o render.o shmutils.o updategamestate.o cell_auto_mapgen.o
 	gcc gameloop.o sockets.o grid.o dungeongen.o enemy.o itemgen.o input.o pkp.o player.o recieve.o render.o shmutils.o updategamestate.o cell_auto_mapgen.o -lSDL2 -lSDL2_ttf -o server
-client: client.o sockets.o render.o grid.o clikey.o
-	gcc client.o sockets.o render.o grid.o clikey.o -lSDL2 -lSDL2_ttf -o client
+client: client.o sockets.o render.o grid.o clikey.o player.o
+	gcc client.o sockets.o render.o grid.o clikey.o player.o -lSDL2 -lSDL2_ttf -o client
 updategamestate.o: updategamestate.c
 	gcc -c updategamestate.c
 render.o: render.c

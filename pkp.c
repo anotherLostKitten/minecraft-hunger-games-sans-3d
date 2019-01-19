@@ -22,9 +22,9 @@ int process_keypress(struct keysdown* keys,int playernum,struct Grid* grid,struc
             goto aftermove;
         }
     }
-	if(*gridrc(grid,player.coords[0]+ydir,player.coords[1]+xdir)){
-			player.coords[0] += ydir;
-			player.coords[1] += xdir;
+	if(*gridrc(grid,playarray[playernum].coords[0]+ydir,playarray[playernum].coords[1]+xdir)){
+			playarray[playernum].coords[0] += ydir;
+			playarray[playernum].coords[1] += xdir;
 	}
 aftermove:
     if(keys->zj) ;

@@ -5,6 +5,8 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
 union semun {
                int              val;    /* Value for SETVAL */
                struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */

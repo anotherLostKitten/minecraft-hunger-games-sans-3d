@@ -27,11 +27,11 @@ int main(){
     struct timespec start, end;
     //initialize player array shared memory
     int playsem,playshm;
-    makeshm("playarray",&playsem,&playshm,sizeof(struct player)*1);
+    makeshm("playarray",&playsem,&playshm,sizeof(struct player)*MAX_PLAYERS);
     //populate and attatch to pointer shared player memory
     struct player* playarray;
     accshm(playsem,playshm,-1,&playarray);
-    for(char np=0;np<MAX_PLAYERS;np++) makePlayer(grid,&(playarray[np]));
+    for(char np=0;np<MAX_PLAYERS;np++) makePlayer(grid,playarray+np);
     accshm(playsem,playshm,1,&playarray);
     //initialize enemy shared memory
     int enemysem,enemyshm;
@@ -39,7 +39,7 @@ int main(){
     //populate and attatch to pointer shared enemy memory
     struct enemy* enemyarray;
     accshm(enemysem,enemyshm,-1,&enemyarray);
-    for(char ne=0;ne<MAXENMY;ne++) makeEnemy(grid,&(enemyarray[ne]));
+    for(char ne=0;ne<MAXENMY;ne++) makeEnemy(grid,enemyarray+ne);
     accshm(enemysem,enemyshm,1,&enemyarray);
     //initialize equipment shared memory
     int equsem,equshm;
@@ -47,7 +47,7 @@ int main(){
     //populate and attatch to pointer shared equipment memory
     struct equipment* equarray;
     accshm(equsem,equshm,-1,&equarray);
-    itemgen(grid,MAXENMY,equarray);
+    itemgen(grid,MAXEQ,equarray);
     accshm(equsem,equshm,1,&equarray);
 
     int waitshm,waitsem,*junk;
@@ -100,10 +100,21 @@ int main(){
                 accshm(equsem,equshm,1,&equarray);
                 accshm(enemysem,enemyshm,1,&enemyarray);
                 accshm(playsem,playshm,1,&playarray);
-               
+
                 //DO GARBAGE
                 accshm(playsem,playshm,-1,&playarray);
+                char ded=0,eeded=0;
+                if(playarray[num_players].hp<=0){
+                    playarray[num_players].coords[0]=-1;
+                    ded=1;
+                }
+                for(int i=0;i<MAX_PLAYERS;i+=1+(i==num_players))
+                    if(playarray[i].hp<=0)
+                        eeded++;
+                if(eeded==MAX_PLAYERS-1) goto exity;
                 write(client_pipe,playarray,sizeof(struct player)*MAX_PLAYERS);
+
+                if(ded) goto exity;
                 accshm(playsem,playshm,1,&playarray);
                 //player = &playarray[num_players];
                 //access and write enemy array to the client
@@ -114,14 +125,30 @@ int main(){
                 accshm(equsem,equshm,-1,&equarray);
                 write(client_pipe,equarray,sizeof(struct equipment)*MAXEQ);
                 accshm(equsem,equshm,1,&equarray);
-                if(num_players==MAX_PLAYERS-1){
-                    //enemy movement
-                    
+                //enemove 
+                accshm(playsem,playshm,-1,&playarray);
+                int hpmax=0,hpind=0;
+                for(int i =0;i<MAX_PLAYERS;i++){
+                    if(hpmax<playarray[i].hp){
+                        hpind=i;
+                        hpmax=playarray[i].hp;
+                    }
                 }
+                if(num_players==hpind){
+                    accshm(enemysem,enemyshm,-1,&enemyarray);
+                    //enemy movement
+                    for(int i=0;i<MAXENMY;i++){
+                        enemove(grid,enemyarray[i],playarray); 
+                    }
+                    accshm(enemysem,enemyshm,1,&enemyarray);
+                }
+                accshm(playsem,playshm,1,&playarray);
+
                 clock_gettime(CLOCK_MONOTONIC_RAW, &end);
             }
         }
     }
+exity:
     closeshm("playarray",playsem,playshm);
     closeshm("enemyarray",enemysem,enemyshm);
     closeshm("equarray",equsem,equshm);

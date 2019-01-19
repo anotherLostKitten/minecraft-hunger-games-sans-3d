@@ -14,4 +14,5 @@ struct enemy{
     int* coords;
 };
 void makeEnemy(struct Grid* grid,struct enemy* en);
+void enemove(struct Grid* grid,struct enemy en,struct player* playarray);
 #endif

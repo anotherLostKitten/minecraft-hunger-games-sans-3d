@@ -57,7 +57,7 @@ int main(){
     //initialize all the subservers
     for(char num_players=0;num_players<MAX_PLAYERS;num_players++){
         if(num_players==MAX_PLAYERS-1||fork()){
-            int client_pipe = server_connect(&wkp);
+            int client_pipe = server_connect(wkp);
             printf("%d %d\n",MAX_PLAYERS-1,num_players);
             accshm(waitsem,waitshm,num_players==MAX_PLAYERS-1?4:-1,&junk);
             if(num_players==MAX_PLAYERS) closeshm("wait",waitsem,waitshm);

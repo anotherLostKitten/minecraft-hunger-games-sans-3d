@@ -25,7 +25,7 @@ int eq(char aord,struct equipment eq){
     return aord=='a'?atkarrs[eq.typeindex][eq.statsindex]:defarrs[eq.typeindex][eq.statsindex];
 }
 void attack(struct player player,struct player target,struct equipment* eqarray){
-    int atk = 0,def = 0;
+    int atk = 50,def = 40;
     for(int i=0;i<6;i++){
         if(player.equipment[i]!=-1) atk+=eq('a',eqarray[player.equipment[i]]);
         if(target.equipment[i]!=-1) def+=eq('d',eqarray[target.equipment[i]]);
@@ -33,7 +33,7 @@ void attack(struct player player,struct player target,struct equipment* eqarray)
     target.hp -= atk/def * 10;
 }
 void attackE(struct player player,struct enemy target,struct equipment* eqarray){
-    int atk = 0;
+    int atk = 50;
     for(int i=0;i<6;i++)
         if(player.equipment[i]!=-1) atk+=eq('a',eqarray[player.equipment[i]]);
     int def = enemy_def[target.statsindex];
@@ -41,7 +41,7 @@ void attackE(struct player player,struct enemy target,struct equipment* eqarray)
 }
 void Eattack(struct enemy aggressor,struct player target,struct equipment* eqarray){
     int atk = enemy_atk[aggressor.statsindex];
-    int def = 0;
+    int def = 40;
     for(int i=0;i<6;i++)
         if(target.equipment[i]!=-1) def+=eq('d',eqarray[target.equipment[i]]);
     target.hp -= atk-def>0?(int)(atk-def):1;

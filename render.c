@@ -29,6 +29,7 @@ int setupSDL(){
     }
     SDL_SetTextureBlendMode(texture,SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer,255,0,0,255);
 }
 
 int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enemyarray,struct equipment* equarray){
@@ -41,7 +42,7 @@ int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enem
     //Clear screen
     SDL_RenderClear(renderer);
     //Render texture to screen
-    SDL_Rect textrect,drawrect;
+    SDL_Rect textrect,drawrect,HPrect;
     textrect.y = 0;
     textrect.h = textrect.w = drawrect.h = drawrect.w = 32;
     for(int i=0;i<htiles;i++){
@@ -61,6 +62,11 @@ int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enem
         drawrect.x = 32*(px-x+htiles/2);
         drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
+        HPrect.x=drawrect.x;
+        HPrect.y=drawrect.y+tiledim;
+        HPrect.h=6;
+        HPrect.w=(int) ((playarray[i].hp/100.0)*32);
+        SDL_RenderFillRect(renderer,&HPrect);
     }
     //puts("rendered players");
     for(int i=0;i<MAXENMY;i++){
@@ -72,13 +78,19 @@ int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enem
         drawrect.x = 32*(px-x+htiles/2);
         drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
+        HPrect.x=drawrect.x;
+        HPrect.y=drawrect.y+tiledim;
+        HPrect.h=6;
+        HPrect.w=(int) ((enemyarray[i].hp/100.0)*32);
+        SDL_RenderFillRect(renderer,&HPrect);
     }
     //puts("rendered enemies");
     for(int i=0;i<MAXEQ;i++){
         if(equarray[i].coords[0]==-1) continue;
         int px = equarray[i].coords[1];
         int py = equarray[i].coords[0];
-        textrect.y = textrect.x = 32;
+        textrect.x = 32*equarray[i].typeindex;
+        textrect.y = 64+equarray[i].statsindex*32;
         drawrect.x = 32*(px-x+htiles/2);
         drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);

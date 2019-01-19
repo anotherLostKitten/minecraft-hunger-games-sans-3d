@@ -15,7 +15,7 @@
 #include "pkp.h"
 
 #define BILLION 1000000000
-#define MAX_PLAYERS 4
+#define MAX_PLAYERS 2
 #define FPS 2
 
 int main(){

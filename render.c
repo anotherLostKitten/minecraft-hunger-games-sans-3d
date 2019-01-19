@@ -31,7 +31,8 @@ int setupSDL(){
     SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
 }
 
-int render(struct player* player,struct Grid* grid,struct player* playarray,struct enemy* enemyarray,struct equipment* equarray){
+int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enemyarray,struct equipment* equarray){
+    struct player* player = playarray+pid;
     int x = player->coords[1];
     int y = player->coords[0];
     const int htiles = screenwidth/tiledim ;

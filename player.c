@@ -44,7 +44,7 @@ void Eattack(struct enemy aggressor,struct player target,struct equipment* eqarr
     int def = 0;
     for(int i=0;i<6;i++)
         if(target.equipment[i]!=-1) def+=eq('d',eqarray[target.equipment[i]]);
-    target.hp -= atk/def * 10;
+    target.hp -= atk-def>0?(int)(atk-def):1;
 }
 
 void printplayer(struct player p){

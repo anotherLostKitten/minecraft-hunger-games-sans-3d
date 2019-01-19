@@ -15,6 +15,6 @@
 #include "clikey.h"
 
 int setupSDL();
-int render(struct player*player,struct Grid*grid,struct player*playarray,struct enemy*enemyarray,struct equipment*equarray);
+int render(int pid,struct Grid*grid,struct player*playarray,struct enemy*enemyarray,struct equipment*equarray);
 
 #endif

@@ -59,14 +59,14 @@ int main(){
     for(char num_players=0;num_players<MAX_PLAYERS;num_players++){
         if(num_players==MAX_PLAYERS-1||fork()){
             int client_pipe = server_connect(wkp);
-            printf("%d %d\n",MAX_PLAYERS-1,num_players);
             accshm(waitsem,waitshm,num_players==MAX_PLAYERS-1?4:-1,&junk);
             if(num_players==MAX_PLAYERS) closeshm("wait",waitsem,waitshm);
 
             //write grid to client
             write(client_pipe,grid,sizeof(struct Grid)+grid->r*grid->c);
             //write player number to client
-            write(client_pipe,&num_players,1);
+            printf("%d\n",num_players);
+            write(client_pipe,&num_players,sizeof(char));
             //access and write player array to the client
             struct player* player;
             accshm(playsem,playshm,-1,&playarray);
@@ -95,7 +95,6 @@ int main(){
 
                 //recieve keysdown struct from client
                 read(client_pipe,keystruct,sizeof(struct keysdown));
-                printkeys(keystruct);
 
                 accshm(playsem,playshm,-1,&playarray);
                 accshm(enemysem,enemyshm,-1,&enemyarray);

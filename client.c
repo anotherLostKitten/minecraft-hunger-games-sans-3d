@@ -20,7 +20,7 @@ int main(int argc, char **argv){
     struct enemy*enemyarray=calloc(sizeof(struct enemy),MAXENMY);
     struct equipment*eqarray=calloc(sizeof(struct equipment),MAXEQ);
 	
-    read(server_socket,grid,sizeof(struct Grid)+MAPSIZE*MAPSIZE);
+    read(server_socket,grid,sizeof(struct Grid)+MAPSIZE*MAPSIZE+1);
     read(server_socket,&pid,1);
 
     //gridprint(grid);
@@ -31,7 +31,9 @@ int main(int argc, char **argv){
     SDL_Event event;
 	
     read(server_socket,playarray,sizeof(struct player)*NUM_PLAYERS);
-    printf("[%i,%i]\n",playarray[pid].coords[0],playarray[pid].coords[1]);
+    if(pid==0) for(int i=0;i<NUM_PLAYERS;i++){
+        printplayer(playarray[i]);
+    }
     read(server_socket,enemyarray,sizeof(struct enemy)*MAXENMY);
     read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);
 
@@ -53,6 +55,9 @@ int main(int argc, char **argv){
         }
 		write(server_socket,keys,sizeof(struct keysdown));
 		read(server_socket,playarray,sizeof(struct player)*NUM_PLAYERS);
+                for(int i=0;i<NUM_PLAYERS;i++){
+                    //printplayer(playarray[i]);
+                }
 		read(server_socket,enemyarray,sizeof(struct enemy)*MAXENMY);
 		read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);
 		if(playarray[pid].hp==0)

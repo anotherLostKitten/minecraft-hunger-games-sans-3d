@@ -11,6 +11,7 @@
 #include "enemy.h"
 #include "cell_auto_mapgen.h"
 #include "keysdown.h"
+#include "clikey.h"
 #include "pkp.h"
 
 #define BILLION 1000000000
@@ -65,7 +66,7 @@ int main(){
             //write grid to client
             write(client_pipe,grid,sizeof(struct Grid)+grid->r*grid->c);
             //write player number to client
-            write(client_pipe,&num_players,4);
+            write(client_pipe,&num_players,1);
             //access and write player array to the client
             struct player* player;
             accshm(playsem,playshm,-1,&playarray);
@@ -81,7 +82,7 @@ int main(){
             write(client_pipe,equarray,sizeof(struct equipment)*MAXEQ);
             accshm(equsem,equshm,1,&equarray);
 
-            struct keysdown* keystruct;
+            struct keysdown* keystruct=malloc(sizeof(struct keysdown));
 
             while(1){
                 long int nanoseconds = (end.tv_sec - start.tv_sec) * 1000000000 + (end.tv_nsec - start.tv_nsec);
@@ -94,6 +95,7 @@ int main(){
 
                 //recieve keysdown struct from client
                 read(client_pipe,keystruct,sizeof(struct keysdown));
+                printkeys(keystruct);
 
                 accshm(playsem,playshm,-1,&playarray);
                 accshm(enemysem,enemyshm,-1,&enemyarray);

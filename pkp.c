@@ -33,7 +33,7 @@ aftermove:
             if(equarray[i].coords[0]==player.coords[0] && equarray[i].coords[1]==player.coords[1]){
                 player.equipment[equarray[i].typeindex] = i;
 
-                return;
+                return 0;
             }
         }
     }

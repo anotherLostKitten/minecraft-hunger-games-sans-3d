@@ -90,7 +90,9 @@ int main(){
 
                 accshm(playsem,playshm,-1,&playarray);
                 accshm(enemysem,enemyshm,-1,&enemyarray);
-                process_keypress(keystruct,num_players,grid,playarray,enemyarray);
+                accshm(equsem,equshm,-1,&equarray);
+                process_keypress(keystruct,num_players,grid,playarray,enemyarray,equarray);
+                accshm(equsem,equshm,1,&equarray);
                 accshm(enemysem,enemyshm,1,&enemyarray);
                 accshm(playsem,playshm,1,&playarray);
                

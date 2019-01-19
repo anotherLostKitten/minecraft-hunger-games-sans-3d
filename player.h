@@ -30,12 +30,8 @@ struct player{
     struct object obj;
     int hp;
     int gold;
-    struct equipment* hat;
-    struct equipment* shirt;
-    struct equipment* pants;
-    struct equipment* shoes;
-    struct equipment* weapon;
-    struct equipment* ring;
+    //these are ints now because they say how much space is left in the array
+    int equipment[6];
     int coords[2];
 };
 void makePlayer(struct Grid* grid,struct player* ptr);

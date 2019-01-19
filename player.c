@@ -18,21 +18,28 @@ bac:
         goto bac;
     //pl->username assigned by something
 }
-int eq(char aord,struct equipment* eq){
-    return aord=='a'?atkarrs[eq->typeindex][eq->statsindex]:defarrs[eq->typeindex][eq->statsindex];
+int eq(char aord,struct equipment eq){
+    return aord=='a'?atkarrs[eq.typeindex][eq.statsindex]:defarrs[eq.typeindex][eq.statsindex];
 }
-void attack(struct player player,struct player target){
-    int atk = eq('a',player.hat)+ eq('a',player.shirt)+ eq('a',player.pants)+ eq('a',player.shoes)+  eq('a',player.weapon);
-    int def = eq('d',target.hat)+ eq('d',target.shirt)+ eq('d',target.pants)+ eq('d',target.shoes)+  eq('d',target.weapon);
+void attack(struct player player,struct player target,struct equipment* eqarray){
+    int atk = 0,def = 0;
+    for(int i=0;i<6;i++){
+        atk+=eq('a',eqarray[player.equipment[i]]);
+        def+=eq('d',eqarray[target.equipment[i]]);
+    }
     target.hp -= atk/def * 10;
 }
-void attackE(struct player player,struct enemy target){
-    int atk = eq('a',player.hat)+ eq('a',player.shirt)+ eq('a',player.pants)+ eq('a',player.shoes)+  eq('a',player.weapon);
+void attackE(struct player player,struct enemy target,struct equipment* eqarray){
+    int atk = 0;
+    for(int i=0;i<6;i++)
+        atk+=eq('a',eqarray[player.equipment[i]]);
     int def = enemy_def[target.statsindex];
     target.hp -= atk/def * 10;
 }
-void Eattack(struct enemy aggressor,struct player target){
+void Eattack(struct enemy aggressor,struct player target,struct equipment* eqarray){
     int atk = enemy_atk[aggressor.statsindex];
-    int def = eq('d',target.hat)+ eq('d',target.shirt)+ eq('d',target.pants)+ eq('d',target.shoes)+  eq('d',target.weapon);
+    int def = 0;
+    for(int i=0;i<6;i++)
+        def+=eq('d',eqarray[target.equipment[i]]);
     target.hp -= atk/def * 10;
 }

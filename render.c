@@ -36,7 +36,7 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
     int y = player->coords[0];
     const int htiles = screenwidth/tiledim ;
     const int vtiles = screenheight/tiledim;
-    puts("clearing for render");
+    //puts("clearing for render");
     //Clear screen
     SDL_RenderClear(renderer);
     //Render texture to screen
@@ -51,7 +51,7 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
             SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
         }
     }
-    puts("rendering tiles");
+    //puts("rendering tiles");
     for(int i=0;i<NUM_PLAYERS;i++){
         if(playarray[i].coords[0]==-1) continue;
         int px = playarray[i].coords[1];
@@ -61,7 +61,7 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
         drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
-    puts("rendered players");
+    //puts("rendered players");
     for(int i=0;i<MAXENMY;i++){
         if(enemyarray[i].coords[0]==-1) continue;
         int px = enemyarray[i].coords[1];
@@ -72,7 +72,7 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
         drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
-    puts("rendered enemies");
+    //puts("rendered enemies");
     for(int i=0;i<MAXEQ;i++){
         if(equarray[i].coords[0]==-1) continue;
         int px = equarray[i].coords[1];
@@ -88,6 +88,15 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
     SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
     drawrect.x = screenwidth, drawrect.y = 0, drawrect.w = 100, drawrect.h = 100;
     //draw the item pictures to the sides
+
+    for(int i=0;i<6;i++){
+        if(player->equipment[i]==-1)continue;
+        textrect.y = 64+equarray[player->equipment[i]].statsindex*32;
+        textrect.x = 32*equarray[player->equipment[i]].typeindex;
+        drawrect.y = 128+48*i;
+        drawrect.x = screenwidth+30;
+        SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
+    }
 
     //end of drawing item pictures
     SDL_RenderCopy(renderer,Message,NULL,&drawrect);

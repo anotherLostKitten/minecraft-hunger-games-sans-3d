@@ -1,7 +1,9 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "player.h"
 #include "grid.h"
 #include "enemy.h"
+
 char* mods[10] = {"Cataclysmic","Flamboyant","Inverted","Prismatic","Congealing","Moist","Perniscious","Turbulent","Porcupinal","Flabbergasted"};
 char* types[6] = {"hat","shirt","shoes","pants","weapon","ring"};
 char* namearrs[6][10] = {{"Gold Circlet","Fedora","Leather Helmet","Bronze Helmet","Mail Cap","Iron Helmet","Steel Helmet","Winged Helmet","Horned Helmet","Adamantine Helmet"},{"Mage Cloak","Toga","Leather Breastplate","Bronze Breastplate","Mail Breastplate","Iron Breastplate","Steel Breastplate","Light Breastplate","Berserker Pelt-Armor","Adamantine Breastplate"},{"Mage Skirt","Cloth Pants","Leather Pants","Female Pants","Male Pants","Iron Greaves","Steel Greaves","Light Greaves","Berserker Pelt Greaves","Adamantine Greaves"},{"Mage's Feet","Crocs","Leather Boots","Bronze Boots","Mail Boots","Iron Boots","Steel Boots","Winged Boots","Berserker Boots","Adamantine Boots"},{"Mage Staff","Stick","Dagger","Bronze Scimitar","Morningstar","Stick with a brick tied on the end","Brick","Winged Rapier","Berserker Axe","Adamantine Shield"},{"Ring of Tyromancy","Unadorned Ring","Spiked Ring","Ring of Poison","Ring of Communication","Ring of Health","Ring of Defence","Ring of Speed","Ring of Fury","Ring of Marriage"}};
@@ -42,4 +44,13 @@ void Eattack(struct enemy aggressor,struct player target,struct equipment* eqarr
     for(int i=0;i<6;i++)
         def+=(target.equipment[i]!=-1)*eq('d',eqarray[target.equipment[i]]);
     target.hp -= atk/def * 10;
+}
+
+void printplayer(struct player p){
+    printf("player at [%i,%i]:\nhp %i\ngold %i\n",p.coords[0],p.coords[1],p.hp,p.gold);
+    for(int i=0;i<6;i++)
+	printf("  equipment %i: %i\n",i,p.equipment[i]);
+}
+void printequipment(struct equipment e){
+    printf("equipment at [%i,%i]:\nstati %i\ntypei %i\nmodi %i\n",e.coords[0],e.coords[1],e.statsindex,e.typeindex,e.modindex);
 }

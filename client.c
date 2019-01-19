@@ -23,6 +23,9 @@ int main(int argc, char **argv){
 	
     read(server_socket,grid,sizeof(struct Grid)+MAPSIZE*MAPSIZE);
     read(server_socket,&pid,1);
+
+    gridprint(grid);
+    printf("%i\n",pid);
     
     struct keysdown*keys=calloc(sizeof(struct keysdown),1);
     SDL_Event event;
@@ -46,7 +49,14 @@ int main(int argc, char **argv){
 	read(server_socket,playarray,sizeof(struct player)*NUM_PLAYERS);
 	read(server_socket,enemyarray,sizeof(struct enemy)*MAXENMY);
 	read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);
-	render(&playarray[pid],grid,playarray,enemyarray,eqarray);
+	for(int i=0;i<NUM_PLAYERS;i++)
+	    printplayer(playarray[i]);
+	for(int i=0;i<MAXEQ;i++)
+	    printequipment(eqarray[i]);
+
+
+
+	render(playarray+pid,grid,playarray,enemyarray,eqarray);
     }
     
     return 0;

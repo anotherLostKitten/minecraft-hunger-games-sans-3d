@@ -47,12 +47,17 @@ int main(int argc, char **argv){
 		read(server_socket,playarray,sizeof(struct player)*NUM_PLAYERS);
 		read(server_socket,enemyarray,sizeof(struct enemy)*MAXENMY);
 		read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);
-		if(playarray[pid].hp==0)
+		if(playarray[pid].hp<=0||keys->quit)
 			break;
-		for(int i=0;i<NUM_PLAYERS;i++)
-			if(i!=pid&&playarray[i].hp>0)
-				goto q;
-		break;
+        char eeded = 0;
+        for(int i=0;i<NUM_PLAYERS;i++)
+            if(playarray[i].coords[0]==-1)
+                eeded++;
+        printf("%d\n",eeded);
+        if(eeded==NUM_PLAYERS-1){
+            puts("YOU WON!");
+            break;
+        }
     q: 	render(pid,grid,playarray,enemyarray,eqarray);
     }
     

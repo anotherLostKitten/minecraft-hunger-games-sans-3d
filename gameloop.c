@@ -136,12 +136,12 @@ int main(){
                 accshm(equsem,equshm,1,&equarray);
                 accshm(playsem,playshm,-1,&playarray);
                 char ded=0,eeded=0;
-                if(playarray[num_players].hp<=0){
+                if(playarray[num_players].hp<=0||keystruct->quit){
                     playarray[num_players].coords[0]=-1;
                     ded=1;
                 }
                 for(int i=0;i<MAX_PLAYERS;i++)
-                    if(playarray[i].hp<=0)
+                    if(playarray[i].coords[0]==-1)
                         eeded++;
                 printf("%d\n",eeded);
                 if(eeded==MAX_PLAYERS-1) goto exity;

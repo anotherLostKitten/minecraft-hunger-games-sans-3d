@@ -40,11 +40,6 @@ aftermove:
                 player.equipment[equarray[i].typeindex] = i;
                 equarray[i].coords[0]=-1;
                 equarray[i].coords[1]=-1;
-                if(keys->quit){
-                    playarray[playernum].hp = -100; 
-                    playarray[playernum].coords[0]=-1;
-                    return 1;
-                }
                 return 0;
             }
         }

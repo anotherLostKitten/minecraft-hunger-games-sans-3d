@@ -14,17 +14,17 @@ int main(int argc, char **argv){
     else
 		server_socket = client_setup( TEST_IP );
 
-    char pid,quit=0;
+    char quit=0;
+    int pid;
     struct Grid*grid=calloc(sizeof(struct Grid)+MAPSIZE*MAPSIZE,1);
     struct player*playarray=calloc(sizeof(struct player),NUM_PLAYERS);
     struct enemy*enemyarray=calloc(sizeof(struct enemy),MAXENMY);
     struct equipment*eqarray=calloc(sizeof(struct equipment),MAXEQ);
 	
+    read(server_socket,&pid,sizeof(int));
     read(server_socket,grid,sizeof(struct Grid)+MAPSIZE*MAPSIZE+1);
-    read(server_socket,&pid,1);
-
     //gridprint(grid);
-    printf("%i\n",pid);
+    printf("%d\n",pid);
     
     struct keysdown*keys=calloc(sizeof(struct keysdown),1);
     setupSDL();

@@ -76,7 +76,7 @@ int render(struct player* player,struct Grid* grid,struct player* playarray,stru
     /*     drawrect.y = 32*(py-y+vtiles/2+yoffset); */
     /*     SDL_RenderCopy(renderer,texture,&textrect,&drawrect); */
     /* } */
-    for(int i=0;i<50;i++){
+    for(int i=0;i<MAXEQ;i++){
         if(equarray[i].coords==NULL) continue;
         int px = equarray[i].coords[1];
         int py = equarray[i].coords[0];

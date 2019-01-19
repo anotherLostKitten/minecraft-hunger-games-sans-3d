@@ -25,8 +25,6 @@ int main(){
 
     struct Grid* grid = mkmap(130,128);
     struct timespec start, end;
-    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
     //initialize player array shared memory
     int playsem,playshm;
     makeshm("playarray",&playsem,&playshm,sizeof(struct player)*1);
@@ -37,24 +35,31 @@ int main(){
     accshm(playsem,playshm,1,&playarray);
     //initialize enemy shared memory
     int enemysem,enemyshm;
-    makeshm("enemyarray",&enemysem,&enemyshm,sizeof(struct enemy)*50);
+    makeshm("enemyarray",&enemysem,&enemyshm,sizeof(struct enemy)*MAXENMY);
     //populate and attatch to pointer shared enemy memory
     struct enemy* enemyarray;
     accshm(enemysem,enemyshm,-1,&enemyarray);
-    for(char ne=0;ne<50;ne++) makeEnemy(grid,&(enemyarray[ne]));
+    for(char ne=0;ne<MAXENMY;ne++) makeEnemy(grid,&(enemyarray[ne]));
     accshm(enemysem,enemyshm,1,&enemyarray);
     //initialize equipment shared memory
     int equsem,equshm;
-    makeshm("equarray",&equsem,&equshm,sizeof(struct enemy)*50);
+    makeshm("equarray",&equsem,&equshm,sizeof(struct enemy)*MAXENMY);
     //populate and attatch to pointer shared equipment memory
     struct equipment* equarray;
     accshm(equsem,equshm,-1,&equarray);
-    itemgen(grid,50,equarray);
+    itemgen(grid,MAXENMY,equarray);
     accshm(equsem,equshm,1,&equarray);
+
+    int waitshm,waitsem,*junk;
+    makeshm("wait",&waitsem,&waitshm,1);
+    accshm(waitsem,waitshm,-1,&junk);
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     //initialize all the subservers
     for(char num_players=0;num_players<MAX_PLAYERS;num_players++){
         if(num_players==MAX_PLAYERS-1||fork()){
             int client_pipe = server_connect(&wkp);
+            accshm(waitsem,waitshm,num_players==MAX_PLAYERS-1?4:-1,&junk);
+
             //write grid to client
             write(client_pipe,grid,sizeof(struct Grid)+grid->r*grid->c);
             //write player number to client
@@ -67,16 +72,16 @@ int main(){
             //player = &playarray[num_players];
             //access and write enemy array to the client
             accshm(enemysem,enemyshm,-1,&enemyarray);
-            write(client_pipe,enemyarray,sizeof(struct enemy)*50);
+            write(client_pipe,enemyarray,sizeof(struct enemy)*MAXENMY);
             accshm(enemysem,enemyshm,1,&enemyarray);
             //access and write equipment array to the client
             accshm(equsem,equshm,-1,&equarray);
-            write(client_pipe,equarray,sizeof(struct equipment)*50);
+            write(client_pipe,equarray,sizeof(struct equipment)*MAXEQ);
             accshm(equsem,equshm,1,&equarray);
 
             struct keysdown* keystruct;
 
-            while(1/*temp*/){
+            while(1){
                 long int nanoseconds = (end.tv_sec - start.tv_sec) * 1000000000 + (end.tv_nsec - start.tv_nsec);
                 int sleep_for = (1000000000/FPS) - nanoseconds;
                 struct timespec* sleepytime = malloc(sizeof(struct timespec));
@@ -103,12 +108,16 @@ int main(){
                 //player = &playarray[num_players];
                 //access and write enemy array to the client
                 accshm(enemysem,enemyshm,-1,&enemyarray);
-                write(client_pipe,enemyarray,sizeof(struct enemy)*50);
+                write(client_pipe,enemyarray,sizeof(struct enemy)*MAXENMY);
                 accshm(enemysem,enemyshm,1,&enemyarray);
                 //access and write equipment array to the client
                 accshm(equsem,equshm,-1,&equarray);
-                write(client_pipe,equarray,sizeof(struct equipment)*50);
+                write(client_pipe,equarray,sizeof(struct equipment)*MAXEQ);
                 accshm(equsem,equshm,1,&equarray);
+                if(num_players==MAX_PLAYERS-1){
+                    //enemy movement
+                    
+                }
                 clock_gettime(CLOCK_MONOTONIC_RAW, &end);
             }
         }

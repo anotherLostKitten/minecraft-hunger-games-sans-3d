@@ -10,13 +10,13 @@ int process_keypress(struct keysdown* keys,int playernum,struct Grid* grid,struc
     if(keys->downs) xdir=0,ydir=-1;
     if(keys->lefta) xdir=-1,ydir=0;
     if(keys->rightd) xdir=1,ydir=0;
-    for(int i = 0;i<4;i++){
+    for(int i = 0;i<NUM_PLAYERS;i++){
         if(i!=playernum && playarray[i].coords[0]==player.coords[0] + xdir && playarray[i].coords[1]==player.coords[1] + ydir){
             attack(player,playarray[i]);
             goto aftermove;
         }
     }
-    for(int i = 0;i<50;i++){
+    for(int i = 0;i<MAXENMY;i++){
         if(enemyarray[i].coords[0]==player.coords[0] + xdir && enemyarray[i].coords[1]==player.coords[1] + ydir){
             attackE(player,enemyarray[i]);
             goto aftermove;
@@ -27,7 +27,7 @@ int process_keypress(struct keysdown* keys,int playernum,struct Grid* grid,struc
 aftermove:
     if(keys->zj) ;
     if(keys->xk){
-        for(int i = 0;i<50;i++){
+        for(int i = 0;i<MAXEQ;i++){
             if(equarray[i].coords[0]==player.coords[0] + xdir && equarray[i].coords[1]==player.coords[1] + ydir){
                 player.equipment[equarray[i].typeindex] = i;
 

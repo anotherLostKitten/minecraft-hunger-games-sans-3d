@@ -8,6 +8,7 @@ struct keysdown{
     char zj;
     char xk;
     char cl;
+    char quit;
 };
 void printkeys(struct keysdown* k);
 //to initialize struct:

@@ -41,6 +41,8 @@ int handlekey(SDL_Event event,struct keysdown* keys){
                         break;
             }
             break;
+        case SDL_QUIT:
+            keys->quit=1;
         default:
             break;
     } 

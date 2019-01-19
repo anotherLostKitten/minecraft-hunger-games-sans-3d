@@ -3,7 +3,7 @@
 
 #include "grid.h"
 
-#define MAPSIZE 128
+#define MAPSIZE 64
 #define NUM_PLAYERS 2
 #define MAXEQ 50
 #define MAXENMY 50

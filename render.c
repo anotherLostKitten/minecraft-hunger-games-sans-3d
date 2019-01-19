@@ -29,7 +29,6 @@ int setupSDL(){
     }
     SDL_SetTextureBlendMode(texture,SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
-    SDL_SetRenderDrawColor(renderer,255,0,0,255);
 }
 
 int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enemyarray,struct equipment* equarray){
@@ -42,6 +41,7 @@ int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enem
     //Clear screen
     SDL_RenderClear(renderer);
     //Render texture to screen
+    SDL_SetRenderDrawColor(renderer,255,0,0,255);
     SDL_Rect textrect,drawrect,HPrect;
     textrect.y = 0;
     textrect.h = textrect.w = drawrect.h = drawrect.w = 32;
@@ -110,7 +110,9 @@ int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enem
         drawrect.x = screenwidth+30;
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
-
+    SDL_SetRenderDrawColor(renderer,0,0,0,255);
+    HPrect.x=screenwidth,HPrect.y=0,HPrect.w=100,HPrect.h=screenheight;
+    SDL_RenderFillRect(renderer,&HPrect);
     //end of drawing item pictures
     SDL_RenderCopy(renderer,Message,NULL,&drawrect);
     //Update screen

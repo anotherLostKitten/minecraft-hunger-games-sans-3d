@@ -24,22 +24,27 @@ int process_keypress(struct keysdown* keys,int playernum,struct Grid* grid,struc
             goto aftermove;
         }
     }
-	if(*gridrc(grid,playarray[playernum].coords[0]+ydir,playarray[playernum].coords[1]+xdir)){
-			playarray[playernum].coords[0] += ydir;
-			playarray[playernum].coords[1] += xdir;
-	}
+    if(*gridrc(grid,playarray[playernum].coords[0]+ydir,playarray[playernum].coords[1]+xdir)){
+        playarray[playernum].coords[0] += ydir;
+        playarray[playernum].coords[1] += xdir;
+    }
 aftermove:
     if(keys->zj) ;
     if(keys->xk){
         for(int i = 0;i<MAXEQ;i++){
             if(equarray[i].coords[0]==player.coords[0] && equarray[i].coords[1]==player.coords[1]){
-		if(player.equipment[equarray[i].typeindex]+1){
-		    equarray[player.equipment[equarray[i].typeindex]].coords[0]=player.coords[0];
-		    equarray[player.equipment[equarray[i].typeindex]].coords[1]=player.coords[1];
-		}
-		player.equipment[equarray[i].typeindex] = i;
-		equarray[i].coords[0]=-1;
-		equarray[i].coords[1]=-1;
+                if(player.equipment[equarray[i].typeindex]+1){
+                    equarray[player.equipment[equarray[i].typeindex]].coords[0]=player.coords[0];
+                    equarray[player.equipment[equarray[i].typeindex]].coords[1]=player.coords[1];
+                }
+                player.equipment[equarray[i].typeindex] = i;
+                equarray[i].coords[0]=-1;
+                equarray[i].coords[1]=-1;
+                if(keys->quit){
+                    playarray[playernum].hp = -100; 
+                    playarray[playernum].coords[0]=-1;
+                    return 1;
+                }
                 return 0;
             }
         }

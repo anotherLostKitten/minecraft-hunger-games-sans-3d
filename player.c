@@ -33,6 +33,7 @@ void attack(struct player player,struct player target,struct equipment* eqarray)
     target.hp -= atk/def * 10;
 }
 void attackE(struct player player,struct enemy target,struct equipment* eqarray){
+    puts("eattack");
     int atk = 50;
     for(int i=0;i<6;i++)
         if(player.equipment[i]!=-1) atk+=eq('a',eqarray[player.equipment[i]]);

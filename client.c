@@ -35,26 +35,15 @@ int main(int argc, char **argv){
     read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);
 
     while(!quit){
+        keys->xk=0;
+        keys->zj=0;
+        keys->cl=0;
         while(SDL_PollEvent(&event)){
             int crementer = 0;
-            keys->xk=0;
-            keys->zj=0;
-            keys->cl=0;
-            switch(event.type){
-			case SDL_KEYUP:
-			case SDL_KEYDOWN:
-				handlekey(event,keys);
-				break;
-			case SDL_QUIT:
-				quit = 1;
-				break;
-            }
+            handlekey(event,keys);
         }
 		write(server_socket,keys,sizeof(struct keysdown));
 		read(server_socket,playarray,sizeof(struct player)*NUM_PLAYERS);
-                for(int i=0;i<NUM_PLAYERS;i++){
-                    //printplayer(playarray[i]);
-                }
 		read(server_socket,enemyarray,sizeof(struct enemy)*MAXENMY);
 		read(server_socket,eqarray,sizeof(struct equipment)*MAXEQ);
 		if(playarray[pid].hp==0)

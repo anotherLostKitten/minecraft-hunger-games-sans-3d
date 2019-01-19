@@ -33,8 +33,13 @@ aftermove:
     if(keys->xk){
         for(int i = 0;i<MAXEQ;i++){
             if(equarray[i].coords[0]==player.coords[0] && equarray[i].coords[1]==player.coords[1]){
-                player.equipment[equarray[i].typeindex] = i;
-
+		if(player.equipment[equarray[i].typeindex)+1){
+		    equarray[player.equipment[equarray[i].typeindex]].coords[0]=player.coords[0];
+		    equarray[player.equipment[equarray[i].typeindex]].coords[1]=player.coords[1];
+		}
+		player.equipment[equarray[i].typeindex] = i;
+		equarray[i].coords[0]=-1;
+		equarray[i].coords[1]=-1;
                 return 0;
             }
         }

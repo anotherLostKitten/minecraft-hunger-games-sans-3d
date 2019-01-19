@@ -37,7 +37,7 @@ void itemgen(struct Grid*map, int m, struct equipment*e){
 		    for(int q=0;q<3||!*gridrc(map,rt,ct);q++)
 			randir(map,&rt,&ct);
 		    e[cr]=randeq(rt,ct);
-		    printf("item spanwed at [%i,%i] -- map = %i\n",rt,ct,*gridrc(map,rt,ct));
+		    printf("item spanwed at [%i,%i] -- map = %i\n",rt,ct,*gridrc(map,rt,ct)); // --------------
 		}
     }
     rmgrid(h);

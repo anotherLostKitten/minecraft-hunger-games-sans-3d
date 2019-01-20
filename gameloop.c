@@ -7,6 +7,7 @@
 #include <sys/sem.h>
 #include <sys/types.h>
 #include <sys/types.h>
+#include <signal.h>
 #include "shmutils.h"
 #include "fs/sockets.h"
 #include "itemgen.h"
@@ -28,9 +29,13 @@ union semun {
 #define BILLION 1000000000
 #define MAX_PLAYERS 2
 #define FPS 2
+void sighandler(int signo){
+    kill(getpid(),SIGTERM);
+}
 
 int main(){
     srand(time(NULL));
+    signal(SIGPIPE,sighandler);
     //make grid
 
     int wkp=server_setup();

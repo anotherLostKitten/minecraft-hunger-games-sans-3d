@@ -21,10 +21,10 @@ bac:
 void enemove(struct Grid* grid,struct enemy* en,struct player* playarray){
     int x = en->coords[0],y = en->coords[1];
     randir(grid,en->coords,en->coords+1);
-	printf("[%i,%i]->[%i,%i]\n",x,y,en->coords[0],en->coords[1]);
+	//printf("[%i,%i]->[%i,%i]\n",x,y,en->coords[0],en->coords[1]);
     for(int i = 0;i<NUM_PLAYERS;i++){
         if(playarray[i].coords[0]==en->coords[0] && playarray[i].coords[1]==en->coords[1]){
-            puts("attacking");
+            //puts("attacking");
             Eattack(en,playarray+i);
             goto aftermove;
         }

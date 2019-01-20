@@ -90,6 +90,7 @@ int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enem
         int px = equarray[i].coords[1];
         int py = equarray[i].coords[0];
         textrect.x = 32*equarray[i].typeindex;
+        textrect.y = 64+equarray[i].statsindex*32;
         drawrect.x = 32*(px-x+htiles/2);
         drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
@@ -112,7 +113,7 @@ int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enem
         if(player->equipment[i]==-1)continue;
         textrect.x = 32*i;
         textrect.y = 64+(equarray+player->equipment[i])->statsindex*32;
-        printf("%d %d\n",textrect.x,textrect.y);
+        //printf("%d %d\n",textrect.x,textrect.y);
         
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }

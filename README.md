@@ -26,3 +26,7 @@ Because we only tested the final version via ssh, we have no idea how fast or sl
 On startup of clients you'll might get an SDL library warning or 2, just ignore those, although this might be ssh specific, we don't know.
 
 Originally this was supposed to be a 4+ player battle royale, however we found that that was slow, so we turned it into a 2 player head to head.
+
+We also scrapped A* pathfinding in favor of random enemy movement because A* pathfinding would make the game too dificult and require more processing time.
+
+There is an alternate dungeon generation algorithm using a least spanning tree implemented and functional, but we decided that dungeons generated using cellular automata were more interesting and unique so chose to use those in the server process.

@@ -95,26 +95,28 @@ int render(int pid,struct Grid* grid,struct player* playarray,struct enemy* enem
         drawrect.y = 32*(py-y+vtiles/2);
         SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
     }
-    TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",23);
-    SDL_Color color = {255,255,255};
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "jimbob", color);
-    SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-    drawrect.x = screenwidth, drawrect.y = 0, drawrect.w = 100, drawrect.h = 100;
-    //draw the item pictures to the sides
-
-    for(int i=0;i<6;i++){
-        if(player->equipment[i]==-1)continue;
-        textrect.y = 64+equarray[player->equipment[i]].statsindex*32;
-        textrect.x = 32*equarray[player->equipment[i]].typeindex;
-        drawrect.y = 128+48*i;
-        drawrect.x = screenwidth+30;
-        SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
-    }
+    //TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",23);
+    //SDL_Color color = {255,255,255};
+    //SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "jimbob", color);
+    //SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+    //SDL_RenderCopy(renderer,Message,NULL,&drawrect);
     SDL_SetRenderDrawColor(renderer,0,0,0,255);
     HPrect.x=screenwidth,HPrect.y=0,HPrect.w=100,HPrect.h=screenheight;
     SDL_RenderFillRect(renderer,&HPrect);
-    //end of drawing item pictures
-    SDL_RenderCopy(renderer,Message,NULL,&drawrect);
+    //draw the item pictures to the sides
+
+    SDL_SetRenderDrawColor(renderer,255,255,255,100);
+    for(int i=0;i<6;i++){
+        drawrect.y = 128+48*i;
+        drawrect.x = screenwidth+34;
+        SDL_RenderFillRect(renderer,&drawrect);
+        if(player->equipment[i]==-1)continue;
+        textrect.x = 32*i;
+        textrect.y = 64+(equarray+player->equipment[i])->statsindex*32;
+        printf("%d %d\n",textrect.x,textrect.y);
+        
+        SDL_RenderCopy(renderer,texture,&textrect,&drawrect);
+    }
     //Update screen
     SDL_RenderPresent(renderer);
     return 0;

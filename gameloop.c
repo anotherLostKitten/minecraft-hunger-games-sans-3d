@@ -158,7 +158,10 @@ int main(){
                     accshm(enemysem,enemyshm,-1,&enemyarray);
                     //enemy movement
                     for(int i=0;i<MAXENMY;i++){
+                        if((enemyarray+i)->coords[0]==-1) continue;
                         enemove(grid,enemyarray+i,playarray);
+                        if((enemyarray+i)->hp<=0)
+                           (enemyarray+i)->coords[0]=-1;
                     }
                     accshm(enemysem,enemyshm,1,&enemyarray);
                 }

@@ -21,7 +21,7 @@ To run the project, first launch the server with `make run_server`, and run clie
 On startup of clients you might get an SDL library warning or 2, just ignore those, although this might be ssh specific, we don't know.
 
 A screen renders with a player (who is a rabbit) and enemies (skeletons) and equipment.
-2 players are needed for the game to start, although this can be changed by changing the preprocessor instructions in both gameloop.c and player.h. Only 2 player games are guaranteed to work as we've had mixed results with 3 and 4 player games, although again, this may be ssh specific. The port and host can be changed in fs/sockets.h, but by default runs on port 5495(1337speak for SANS), and localhost.
+2 players are needed for the game to start, although this can be changed by changing the preprocessor instructions in both gameloop.c and player.h. Only 2 player games are guaranteed to work as we've had mixed results with 3 and 4 player games, although again, this may be ssh specific. The port and host can be changed in fs/sockets.h, but by default it runs on port 5495 (1337speak for SANS), and localhost.
 
 Originally this was supposed to be a 4+ player battle royale, however we found that that was slow, so we turned it into a 2 player head to head.
 

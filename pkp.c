@@ -12,6 +12,7 @@ int process_keypress(struct keysdown* keys,int playernum,struct Grid* grid,struc
     if(keys->lefta) xdir=-1;
     if(keys->rightd) xdir=1;
     //printf("processing keypress %d %d\n",xdir,ydir);
+    if((long int)playarray==(long int)enemyarray) return 1;
     for(int i = 0;i<NUM_PLAYERS;i++){
         if(playarray[i].coords[0]==-1) continue;
         if(i!=playernum && playarray[i].coords[0]==player->coords[0] + ydir && playarray[i].coords[1]==player->coords[1] + xdir){

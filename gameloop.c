@@ -137,7 +137,9 @@ quit:
                 write(client_pipe,equarray,sizeof(struct equipment)*MAXEQ);
                 accshm(equsem,equshm,1,&equarray);
                 accshm(playsem,playshm,-1,&playarray);
+                accshm(enemysem,enemyshm,-1,&enemyarray);
                 char ded=0,eeded=0;
+                if((long int)playarray==(long int)enemyarray) goto exity;
                 if(playarray[num_players].hp<=0||keystruct->quit){
                     playarray[num_players].coords[0]=-1;
                     ded=1;
@@ -157,7 +159,6 @@ quit:
                 }
                 //printf("hpind:%i pid:%i\n",hpind,num_players);
                 if(num_players==hpind){
-                    accshm(enemysem,enemyshm,-1,&enemyarray);
                     //enemy movement
                     for(int i=0;i<MAXENMY;i++){
                         if((enemyarray+i)->coords[0]==-1) continue;
@@ -165,8 +166,8 @@ quit:
                         if((enemyarray+i)->hp<=0)
                            (enemyarray+i)->coords[0]=-1;
                     }
-                    accshm(enemysem,enemyshm,1,&enemyarray);
                 }
+                accshm(enemysem,enemyshm,1,&enemyarray);
                 accshm(playsem,playshm,1,&playarray);
 
                 clock_gettime(CLOCK_MONOTONIC_RAW, &end);

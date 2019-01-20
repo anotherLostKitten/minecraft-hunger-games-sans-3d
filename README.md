@@ -26,3 +26,5 @@ Because we only tested the final version via ssh, we have no idea how fast or sl
 On startup of clients you'll might get an SDL library warning or 2, just ignore those, although this might be ssh specific, we don't know.
 
 Originally this was supposed to be a 4+ player battle royale, however we found that that was slow, so we turned it into a 2 player head to head.
+
+There are two control schemes: arrow keys to move, and x to pick items up, or wasd to move and k to pick items up.

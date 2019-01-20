@@ -30,7 +30,8 @@ void attack(struct player *player,struct player *target,struct equipment* eqarra
         if(player->equipment[i]!=-1) atk+=eq('a',eqarray[player->equipment[i]]);
         if(target->equipment[i]!=-1) def+=eq('d',eqarray[target->equipment[i]]);
     }
-    target->hp -= atk/def * 10;
+	printf("%i damage -- a: %i d: %i\n",10*atk/def,atk,def);
+    target->hp -= 10*atk/def;
 }
 void attackE(struct player* player,struct enemy* target,struct equipment* eqarray){
     puts("eattack");
@@ -38,14 +39,16 @@ void attackE(struct player* player,struct enemy* target,struct equipment* eqarra
     for(int i=0;i<6;i++)
         if(player->equipment[i]!=-1) atk+=eq('a',eqarray[player->equipment[i]]);
     int def = enemy_def[target->statsindex];
-    target->hp -= atk/def * 10;
+	printf("%i damage -- a: %i d: %i\n",10*atk/def,atk,def);
+    target->hp -= 10*atk/def;
 }
 void Eattack(struct enemy* aggressor,struct player* target,struct equipment* eqarray){
     int atk = enemy_atk[aggressor->statsindex];
     int def = 40;
     for(int i=0;i<6;i++)
         if(target->equipment[i]!=-1) def+=eq('d',eqarray[target->equipment[i]]);
-    target->hp -= atk-def>0?(int)(atk-def):1;
+	printf("%i damage -- a: %i d: %i\n",10*atk/def,atk,def);
+    target->hp -= 10*atk/def;
 }
 
 void printplayer(struct player p){

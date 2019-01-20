@@ -31,3 +31,5 @@ Jonathan Tue Jan 15 21:27:47 EST 2019 - Refactored more models, added pseudo-inh
 Jonathan Thu Jan 17 10:25:33 EST 2019 - Changed lots of code and updated shmutils and I HATE MY LIFE
 Jonathan Thu Jan 17 19:06:48 EST 2019 - Okay made shared memory start working
 Jonathan Sat Jan 19 07:06:51 EST 2019 - Many changes including the beginnings of an actual server structure
+
+Jonathan Sat Jan 19 19:40:33 EST 2019 - Final entry: Many bugfixes and an overall sense of achievement

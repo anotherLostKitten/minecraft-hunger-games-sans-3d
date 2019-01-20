@@ -110,6 +110,7 @@ int main(){
 
                 //recieve keysdown struct from client
                 read(client_pipe,keystruct,sizeof(struct keysdown));
+                if(keystruct->quit) goto quit;
 
                 accshm(playsem,playshm,-1,&playarray);
                 accshm(enemysem,enemyshm,-1,&enemyarray);
@@ -118,6 +119,7 @@ int main(){
                 accshm(equsem,equshm,1,&equarray);
                 accshm(enemysem,enemyshm,1,&enemyarray);
                 accshm(playsem,playshm,1,&playarray);
+quit:
 
                 //DO GARBAGE
                 accshm(playsem,playshm,-1,&playarray);

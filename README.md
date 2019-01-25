@@ -13,7 +13,7 @@ apt-get install libsdl2-dev
 and
 
 ```bash
-apt-get install libsdl2-ttf
+apt-get install libsdl2-ttf-dev
 ```
 
 To run the project, first launch the server with `make run_server`, and run clients with `make run_client`.

@@ -1,13 +1,18 @@
 #include <fcntl.h>
 #include <unistd.h>
+#include <signal.h>
 #include "render.h"
 #include "player.h"
 #include "fs/sockets.h"
 #include "enemy.h"
 #include "clikey.h"
 #include "keysdown.h"
+void sighandler(int signo){
+    kill(getpid(),SIGTERM);
+}
 
 int main(int argc, char **argv){
+    signal(SIGPIPE,sighandler);
     int server_socket;
     if (argc == 2)
 		server_socket = client_setup( argv[1]);

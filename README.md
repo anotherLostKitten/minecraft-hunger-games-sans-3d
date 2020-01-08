@@ -6,15 +6,19 @@ Our project is a multiplayer procedurally generated head to head vs. game. Playe
 
 The project uses SDL to render graphics and (sort of uses) SDL_ttf to render text. These can be installed with
 
-```bash
-apt-get install libsdl2-dev
+```
+$ apt-get install libsdl2-dev
+$ apt-get install libsdl2-ttf-dev
 ```
 
-and
+on debian-based distros and
 
-```bash
-apt-get install libsdl2-ttf-dev
 ```
+# pacman -S sdl2
+# pacman -S local/sdl2_ttf
+```
+
+on arch-based distros
 
 To run the project, first launch the server with `make run_server`, and run clients with `make run_client`.
 
@@ -31,5 +35,3 @@ We also scrapped A* pathfinding in favor of random enemy movement because A* pat
 There are two control schemes: arrow keys to move, and x to pick items up, or wasd to move and k to pick items up.
 
 There is an alternate dungeon generation algorithm using a least spanning tree implemented and functional, but we decided that dungeons generated using cellular automata were more interesting and unique so chose to use those in the server process.
-
-egg is egg

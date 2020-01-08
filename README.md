@@ -1,4 +1,4 @@
-# Minecraft Hunger Games Sans 3d
+'# Minecraft Hunger Games Sans 3d
 
 Theodore Peters and Jonathan Singer -- pd. 3
 
@@ -35,3 +35,5 @@ We also scrapped A* pathfinding in favor of random enemy movement because A* pat
 There are two control schemes: arrow keys to move, and x to pick items up, or wasd to move and k to pick items up.
 
 There is an alternate dungeon generation algorithm using a least spanning tree implemented and functional, but we decided that dungeons generated using cellular automata were more interesting and unique so chose to use those in the server process.
+
+Also make sure to chekc out the epic sequel https://github.com/jesings/Anacoluthonic-Mnemonic-Supersonic

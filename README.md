@@ -1,4 +1,4 @@
-'# Minecraft Hunger Games Sans 3d
+# Minecraft Hunger Games Sans 3d
 
 Theodore Peters and Jonathan Singer -- pd. 3
 
